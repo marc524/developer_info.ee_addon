@@ -497,6 +497,8 @@ class Developer_Info_helper
 							if ($matrix_row['col_type'] == 'file')
 							{
 								$matrix_file_dir_decoded = unserialize(base64_decode($matrix_row['col_settings']));
+								if (array_key_exists('directory', $matrix_file_dir_decoded))
+								{
 								$matrix_file_dir_id = $matrix_file_dir_decoded['directory'];
 								$matrix_file_directory .= '<span class="font-smaller">';
 								if ($matrix_file_dir_id != 'all')
@@ -508,6 +510,7 @@ class Developer_Info_helper
 									$matrix_file_directory .= '<br />&nbsp;&nbsp;&nbsp;' . lang('all');
 								}
 								$matrix_file_directory .= '</span>';
+								}
 							}
 							if ($matrix_row['col_type'] == 'wygwam')
 							{
@@ -516,11 +519,14 @@ class Developer_Info_helper
 								if ($this->_check_pt_wygwam())
 								{
 									$matrix_wygwam_query = $this->_get_wygwam_config($config_id);
-									$matrix_wygwam_settings_decoded = unserialize(base64_decode($matrix_wygwam_query->row('settings')));
-									$matrix_wygwam_file_id = $matrix_wygwam_settings_decoded['upload_dir'];
-									$matrix_file_directory = '<br />&nbsp;&nbsp;&nbsp;<span class="font-smaller">';
-									$matrix_file_directory .= $this->_get_wygwam_file_dir($matrix_wygwam_file_id, '&nbsp;&nbsp;&nbsp;');
-									$matrix_file_directory .= '</span>';
+									if (array_key_exists('settings', $matrix_wygwam_query))
+									{
+										$matrix_wygwam_settings_decoded = unserialize(base64_decode($matrix_wygwam_query->row('settings')));
+										$matrix_wygwam_file_id = $matrix_wygwam_settings_decoded['upload_dir'];
+										$matrix_file_directory = '<br />&nbsp;&nbsp;&nbsp;<span class="font-smaller">';
+										$matrix_file_directory .= $this->_get_wygwam_file_dir($matrix_wygwam_file_id, '&nbsp;&nbsp;&nbsp;');
+										$matrix_file_directory .= '</span>';
+									}
 								}
 							}
 
