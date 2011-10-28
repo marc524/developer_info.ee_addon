@@ -486,7 +486,7 @@ class Developer_Info_helper
 					if ($row['field_type'] == 'matrix')
 					{
 						$config_id = $row['field_id'];
-						$matrix_query = $this->EE->db->select('col_name, col_label, col_type, col_required, col_search, col_settings')
+						$matrix_query = $this->EE->db->select('col_id, col_name, col_label, col_type, col_required, col_search, col_settings')
 																			->from('exp_matrix_cols')
 																			->where('field_id', $config_id)
 																			->get();
@@ -496,20 +496,24 @@ class Developer_Info_helper
 							$matrix_file_directory = '';
 							if ($matrix_row['col_type'] == 'file')
 							{
+								$matrix_file_directory = '<br /><span class="font-smaller">&nbsp;&nbsp;&nbsp;';
 								$matrix_file_dir_decoded = unserialize(base64_decode($matrix_row['col_settings']));
 								if (array_key_exists('directory', $matrix_file_dir_decoded))
 								{
-								$matrix_file_dir_id = $matrix_file_dir_decoded['directory'];
-								$matrix_file_directory .= '<span class="font-smaller">';
-								if ($matrix_file_dir_id != 'all')
-								{
-									$matrix_file_directory .= '<br />&nbsp;&nbsp;&nbsp;' .$this->_get_file_dir($matrix_file_dir_id);
+									$matrix_file_dir_id = $matrix_file_dir_decoded['directory'];
+
+									if ($matrix_file_dir_id != 'all')
+									{
+										$matrix_file_directory .= $this->_get_file_dir($matrix_file_dir_id);
+									}
+									else
+									{
+										$matrix_file_directory .= lang('all');
+									}
 								}
 								else
 								{
-									$matrix_file_directory .= '<br />&nbsp;&nbsp;&nbsp;' . lang('all');
-								}
-								$matrix_file_directory .= '</span>';
+									$matrix_file_directory .= lang('all');
 								}
 							}
 							if ($matrix_row['col_type'] == 'wygwam')
@@ -523,11 +527,10 @@ class Developer_Info_helper
 									{
 										$matrix_wygwam_settings_decoded = unserialize(base64_decode($matrix_wygwam_query->row('settings')));
 										$matrix_wygwam_file_id = $matrix_wygwam_settings_decoded['upload_dir'];
-										$matrix_file_directory = '<br />&nbsp;&nbsp;&nbsp;<span class="font-smaller">';
 										$matrix_file_directory .= $this->_get_wygwam_file_dir($matrix_wygwam_file_id, '&nbsp;&nbsp;&nbsp;');
-										$matrix_file_directory .= '</span>';
 									}
 								}
+								$matrix_file_directory .= '</span>';
 							}
 
 							$ft_info .= '<strong>' . $matrix_row['col_label'] . '</strong>' . $matrix_file_directory . '<br /><input type="text" class="short_name" onFocus="this.select()" value="{' . $matrix_row['col_name'] . '}" />';
