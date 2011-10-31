@@ -1,6 +1,6 @@
 # Developer Info #
 
-Displays useful information about your channels and channel fields all on one page. Additionally, all template information and all file upload locations are displayed on their own pages.
+Displays useful information about your channels and channel fields all on one page. Additionally, all template information and all file upload locations are displayed on their own pages. This is an EE2 port of the EE1 SL Developer Info addon by Stephen Lewis.
 
 ## Installation
 
