@@ -8,21 +8,20 @@
 			<table class="mainTable" border="0" cellspacing="0" cellpadding="0">
 				<thead>
 					<tr>
-						<th width="5%"><?=lang('files_id'); ?></th>
-						<th width="10%"><?=lang('files_name'); ?></th>
-						<th width="20%"><?=lang('files_path'); ?></th>
-						<th width="20%"><?=lang('files_url'); ?></th>
-						<th width="10%"><?=lang('files_types'); ?></th>
-						<th width="8%"><?=lang('files_max_size'); ?></th>
-						<th width="8%"><?=lang('files_max_height'); ?></th>
-						<th width="8%"><?=lang('files_max_width'); ?></th>
+						<th width="5%"><?= lang('files_id'); ?></th>
+						<th width="10%"><?= lang('files_name'); ?></th>
+						<th width="20%"><?= lang('files_path'); ?></th>
+						<th width="20%"><?= lang('files_url'); ?></th>
+						<th width="10%"><?= lang('files_types'); ?></th>
+						<th width="8%"><?= lang('files_max_size'); ?></th>
+						<th width="8%"><?= lang('files_max_height'); ?></th>
+						<th width="8%"><?= lang('files_max_width'); ?></th>
 					</th>
 				</tr>
 			</thead>
 			<tbody>
-<?
-				foreach($files as $file)
-				{
+<?php
+	foreach($files as $file):
 ?>
 				<tr>
 					<td><?= $file['id']; ?></td>
@@ -34,10 +33,8 @@
 					<td><?= $file['max_height']; ?></td>
 					<td><?= $file['max_width']; ?></td>
 				</tr>
-<?
-				}
+<?php
+	endforeach
 ?>
 				</tbody>
 			</table>
-<?
-?>

@@ -28,7 +28,7 @@ ul#action_sub_nav li {
 	text-align:right;
 	float:left;
 	display:inline;
-	margin:0 3px;
+	margin:0 3px 5px;
 }
 ul#action_sub_nav li a,
 .di_template-links a {
@@ -47,6 +47,9 @@ p#site-id {
 	float:left;
 	clear:both;
 	font-weight:700;
+}
+.di_channel-heading {
+	cursor:default !important;
 }
 .di_col {
 	width:30%;

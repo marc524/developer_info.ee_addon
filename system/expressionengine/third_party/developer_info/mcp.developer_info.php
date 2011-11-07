@@ -74,6 +74,7 @@ class Developer_info_mcp extends BOSBase
 		if ($channel_query->num_rows() > 0)
 		{
 			$channels_select = array();
+			$vars['channels'] = array();
 			foreach($channel_query->result_array() as $row)
 			{
 				$channels_select[$row['channel_id']] = $row['channel_title'];
