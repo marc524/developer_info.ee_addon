@@ -214,8 +214,14 @@ class Developer_Info_helper
 	{
 		$edit_url = $this->_base_url_admin . AMP . 'M=field_management' . AMP . 'group_id=' . $group_id;
 		$c='';
-		$field_group_name = $this->_display_field_group_name_quick($group_id);
-		$c .= '<div class="di_list-head"><a href="' . $edit_url . '">(ID: ' . $group_id . ') ' . $field_group_name . '</a></div>';
+		if ($group_id) {
+			$field_group_name = $this->_display_field_group_name_quick($group_id);
+			$c .= '<div class="di_list-head"><a href="' . $edit_url . '">(ID: ' . $group_id . ') ' . $field_group_name . '</a></div>';
+		}
+		else
+		{
+			$c = lang('no_fg');
+		}
 		return $c;
 	}
 
@@ -257,7 +263,7 @@ class Developer_Info_helper
 																		->get();
 
 		$edit_file_dir =  BASE . AMP . 'C=content_files' . AMP . 'M=edit_upload_preferences' . AMP . 'id=' . $dir_id;
-		$file_dir = '<span class="font-smaller">' . lang('upload_dir') . '<a href="' . $edit_file_dir . '">' . $file_dir_query->row('name') . '</a></span>';
+		$file_dir = '<span class="di_font-smaller">' . lang('upload_dir') . '<a href="' . $edit_file_dir . '">' . $file_dir_query->row('name') . '</a></span>';
 		return $file_dir;
 	}
 
@@ -295,14 +301,14 @@ class Developer_Info_helper
 			$wygwam_file_id = $wygwam_settings_decoded['upload_dir'];
 
 			$edit_wygwam_config =  $this->_base_url_modules . AMP . 'module=wygwam' . AMP . 'method=config_edit' . AMP . 'config_id=' .$config_id;
-			$c = '<span class="font-smaller">' . lang('pt_config'). ':</span> ' . '<a href="' . $edit_wygwam_config . '">' . $wygwam_config->row('config_name') . '</a>';
+			$c = '<span class="di_font-smaller">' . lang('pt_config'). ':</span> ' . '<a href="' . $edit_wygwam_config . '">' . $wygwam_config->row('config_name') . '</a>';
 			if ($wygwam_file_id)
 			{
-				$c .= '<br /><span class="font-smaller">' . $space . $this->_get_file_dir($wygwam_file_id);
+				$c .= '<br /><span class="di_font-smaller">' . $space . $this->_get_file_dir($wygwam_file_id);
 			}
 			else
 			{
-				$c .= '<br /><span class="font-smaller">' . $space . lang('no_file_upload') . '</span>';
+				$c .= '<br /><span class="di_font-smaller">' . $space . lang('no_file_upload') . '</span>';
 			}
 			return $c;
 	}
@@ -363,7 +369,7 @@ class Developer_Info_helper
                     												->where('f.field_id', $field_id)
                     												->get();
 
-							$ft_info = '<span class="font-smaller">' . lang('pre-pop'). '</span>';
+							$ft_info = '<span class="di_font-smaller">' . lang('pre-pop'). '</span>';
 							$ft_info .= $select_query->row('channel_title') . ': ' . $select_query->row('field_label');
 						}
 						else
@@ -381,7 +387,7 @@ class Developer_Info_helper
 																			->where('channel_id', $rel_id)
 																			->get();
 
-						$ft_info = '<span class="font-smaller">' . lang('related'). '</span>';
+						$ft_info = '<span class="di_font-smaller">' . lang('related'). '</span>';
 						$ft_info .= $rel_query->row('channel_title');
 					}
 
@@ -424,7 +430,7 @@ class Developer_Info_helper
 						$playa_info_decoded = unserialize(base64_decode($row['field_settings']));
 						if (array_key_exists('channels', $playa_info_decoded))
 						{
-							$ft_info .= '<span class="font-smaller">' . lang('pt_playa_channel'). '</span><br />';
+							$ft_info .= '<span class="di_font-smaller">' . lang('pt_playa_channel'). '</span><br />';
 							$playa_channels = $playa_info_decoded['channels'];
 							foreach($playa_channels as $channel)
 							{
@@ -438,7 +444,7 @@ class Developer_Info_helper
 						}
 						if (array_key_exists('cats', $playa_info_decoded))
 						{
-							$ft_info .= '<span class="font-smaller">' . lang('pt_playa_cats'). '</span><br />';
+							$ft_info .= '<span class="di_font-smaller">' . lang('pt_playa_cats'). '</span><br />';
 							$playa_cats = $playa_info_decoded['cats'];
 							foreach($playa_cats as $cat)
 							{
@@ -452,7 +458,7 @@ class Developer_Info_helper
 						}
 						if (array_key_exists('authors', $playa_info_decoded))
 						{
-							$ft_info .= '<span class="font-smaller">' . lang('pt_playa_author'). '</span><br />';
+							$ft_info .= '<span class="di_font-smaller">' . lang('pt_playa_author'). '</span><br />';
 							$playa_authors = $playa_info_decoded['authors'];
 							foreach($playa_authors as $author)
 							{
@@ -466,7 +472,7 @@ class Developer_Info_helper
 						}
 						if (array_key_exists('statuses', $playa_info_decoded))
 						{
-							$ft_info .= '<span class="font-smaller">' . lang('pt_playa_status'). '</span><br />';
+							$ft_info .= '<span class="di_font-smaller">' . lang('pt_playa_status'). '</span><br />';
 							$playa_statuses = $playa_info_decoded['statuses'];
 							foreach($playa_statuses as $status)
 							{
@@ -496,7 +502,7 @@ class Developer_Info_helper
 							$matrix_file_directory = '';
 							if ($matrix_row['col_type'] == 'file')
 							{
-								$matrix_file_directory = '<br /><span class="font-smaller">&nbsp;&nbsp;&nbsp;';
+								$matrix_file_directory = '<br /><span class="di_font-smaller">&nbsp;&nbsp;&nbsp;';
 								$matrix_file_dir_decoded = unserialize(base64_decode($matrix_row['col_settings']));
 								if (array_key_exists('directory', $matrix_file_dir_decoded))
 								{
@@ -533,8 +539,8 @@ class Developer_Info_helper
 								$matrix_file_directory .= '</span>';
 							}
 
-							$ft_info .= '<strong>' . $matrix_row['col_label'] . '</strong>' . $matrix_file_directory . '<br /><input type="text" class="short_name" onFocus="this.select()" value="{' . $matrix_row['col_name'] . '}" />';
-							$ft_info .= '<br /><span class="font-smaller">&nbsp;&nbsp;&nbsp;' . $matrix_row['col_type'];
+							$ft_info .= '<strong>' . $matrix_row['col_label'] . '</strong>' . $matrix_file_directory . '<br /><input type="text" class="di_short_name" onFocus="this.select()" value="{' . $matrix_row['col_name'] . '}" />';
+							$ft_info .= '<br /><span class="di_font-smaller">&nbsp;&nbsp;&nbsp;' . $matrix_row['col_type'];
 							if ($matrix_row['col_search'] == 'y') $ft_info .= '&nbsp;&nbsp;|&nbsp;&nbsp;' . lang('pt_matrix_searchable');
 							if ($matrix_row['col_required'] == 'y') $ft_info .= '&nbsp;&nbsp;|&nbsp;&nbsp;' . lang('pt_matrix_required');
 							$ft_info .= '</span><br /><br />';
@@ -595,7 +601,7 @@ class Developer_Info_helper
 									}
 									$ci_action_name .= '<br />';
 							}
-							$ft_info .= ucwords($ci_action_group['group_name']). '<br /><span class="font-smaller">' .$ci_action_name. '</span><br />';
+							$ft_info .= ucwords($ci_action_group['group_name']). '<br /><span class="di_font-smaller">' .$ci_action_name. '</span><br />';
 						}
 						if ($ci_location == 'local')
 						{
@@ -613,7 +619,7 @@ class Developer_Info_helper
 					$c .= '<tr class="' . $class . '">';
 					$c .= '<td>' .$row['field_id']. '</td>';
 					$c .= '<td><a href="' . $edit_field_url . '">' .$row['field_label']. '</a></td>';
-					$c .= '<td><input type="text" class="short_name" onFocus="this.select()" value="{' .$row['field_name']. '}" /></td>';
+					$c .= '<td><input type="text" class="di_short_name" onFocus="this.select()" value="{' .$row['field_name']. '}" /></td>';
 					$c .= '<td>' .$row['field_type']. '</td>';
 					$c .= '<td>';
 					$c .= $ft_info;
@@ -684,15 +690,15 @@ class Developer_Info_helper
 				$class = "di_row$i";
 
 				$c .= '<tr class="' . $class . '">';
-				$c .= '<td><a href="' . $edit_field_url . '">' .$row['template_name']. '</a></td>';
-				$c .= '<td>' .$row['template_type']. '</td>';
-				$c .= '<td>';
+				$c .= '<td width="35%"><a href="' . $edit_field_url . '">' .$row['template_name']. '</a></td>';
+				$c .= '<td  width="20%">' .$row['template_type']. '</td>';
+				$c .= '<td  width="10%">';
 				$c .= ($row['save_template_file'] == 'y') ? lang('yes') : lang('no');
 				$c .= '</td>';
-				$c .= '<td>';
+				$c .= '<td width="10%">';
 				$c .= ($row['cache'] == 'y') ? lang('yes') : lang('no');
 				$c .= '</td>';
-				$c .= '<td>';
+				$c .= '<td width="10%">';
 				if ($row['allow_php'] == 'y')
 				{
 					$c .= lang('yes') . ' (' . ($row['php_parse_location'] == 'o' ? lang('output') : lang('input')) . ')';

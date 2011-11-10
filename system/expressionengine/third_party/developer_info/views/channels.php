@@ -1,5 +1,5 @@
-<?php
-	echo '<div class="jump-nav">'; echo lang('jump_to'); echo $all_channels; echo '</div>'; echo $site_id;
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+	echo '<div id="di_jump-nav">'; echo lang('jump_to'); echo $all_channels; echo '</div>'; echo $site_id;
 ?>
 	<ul id="action_nav">
 		<li class="button"><?= $channels_new_btn; ?></li>
@@ -7,7 +7,7 @@
 		<li class="button"><?= $channels_new_stats_btn; ?></li>
 		<li class="button"><?= $channels_new_cats_btn; ?></li>
 	</ul>
-	<ul id="action_sub_nav">
+	<ul id="di_action_sub_nav">
 		<li><?= $channels_all_fg_btn; ?></li>
 		<?= $wygwam_configs_btn; ?>
 	</ul>
@@ -18,15 +18,16 @@
 					<thead>
 						<tr>
 							<th colspan="8" class="di_channel-heading">
-								<span class="di_channel-links"><?= $channel['channel_edit_entries']; ?> | <?= $channel['chnnel_edit_preferences']; ?> | <?= $channel['channel_edit_groups']; ?><?php if(!empty($channel['field_group_id'])){ ?> | <?= $channel['channel_edit_fg']; } ?><?php if(!empty($channel['field_group_id'])){ ?> | <?= $channel['channel_new_field']; }?></span>
-								<h2><?= $channel['channel_title']; ?></h2><br />
-								Short name: <?= $channel['channel_name']; ?><br />
-								Channel id: <?= $channel['channel_id']; ?>
+								<h2 class="di_head"><?= $channel['channel_title']; ?></h2>
+								<p class="di_channel-links"><?= $channel['channel_edit_entries']; ?> | <?= $channel['chnnel_edit_preferences']; ?> | <?= $channel['channel_edit_groups']; ?><?php if(!empty($channel['field_group_id'])){ ?>
+								<br /><?= $channel['channel_edit_fg']; } ?><?php if(!empty($channel['field_group_id'])){ ?> | <?= $channel['channel_new_field']; }?></p>
+								<p class="di_left-info"><?= lang('channel_short'); ?>: <input type="text" class="di_short_name" onFocus="this.select()" value="<?= $channel['channel_name']; ?>">
+								<br /><?= lang('channel_id'); ?>: <?= $channel['channel_id']; ?></p>
+
 							</th>
 						</tr>
 					</thead>
-
-				<tbody>
+				<tbody id="channel_<?= $channel['channel_id']; ?>" class="open">
 
 					<tr class="di_channel-info">
 						<td colspan="8">
@@ -66,7 +67,7 @@
 					</tr>
 					<?= $channel['channel_fields']; ?>
 					<tr class="di_channel-info">
-						<td colspan="8" class="font-smaller">
+						<td colspan="8" class="di_font-smaller">
 								<div class="di_query-link"><?= lang('show_query'); ?></div>
 								<div class="di_link">
 									<?= $channel['channel_query']; ?>
@@ -78,4 +79,4 @@
 <?php
 	endforeach
 ?>
-<a href="#top"><strong>Scroll to top</strong></div>
+<div style="margin-top:10px;"><a href="#top"><strong>Scroll to top</strong></a></div>

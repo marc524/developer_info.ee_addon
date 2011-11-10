@@ -1,4 +1,4 @@
-<?php ?>
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed'); ?>
 	<ul id="action_nav">
 		<li class="button"><?= $files_new_btn; ?></li>
 		<li class="button"><?= $files_prefs_btn; ?></li>

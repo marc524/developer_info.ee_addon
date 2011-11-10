@@ -1,4 +1,4 @@
-<?php
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 require_once PATH_THIRD. 'developer_info/bosbase' .EXT;
 
@@ -60,7 +60,7 @@ class Developer_info_mcp extends BOSBase
 		$vars['channels_all_fg_btn'] = '<a href="' . $channels_all_fg_link . '">' . lang('channels_all_fg_link') . '</a>';
 		$vars['wygwam_configs_btn'] = $this->EE->developer_info_helper->_set_wygwam_configs_link();
 		$vars['dir_col_head'] = lang('channel_col_head_info');
-		$vars['site_id'] = '<p id="site-id">' . lang('siteid') . $this->_site_id . '</p>';
+		$vars['site_id'] = '<p id="di_site-id">' . lang('siteid') . $this->_site_id . '</p>';
 
 		// -------------------------------------------
 		//  Channels Query
@@ -248,6 +248,7 @@ class Developer_info_mcp extends BOSBase
 			$this->EE->cp->add_to_head('<link rel="stylesheet" type="text/css" href="' . $this->EE->config->item('theme_folder_url') . 'third_party/developer_info/css/di-with_override.css" />');
 		}
 
+		$this->EE->cp->add_to_foot('<script type="text/javascript" src="' . $this->EE->config->item('theme_folder_url') . 'third_party/developer_info/js/jquery.cookie.js"></script>');
 		$this->EE->cp->add_to_foot('<script type="text/javascript" src="' . $this->EE->config->item('theme_folder_url') . 'third_party/developer_info/js/developer_info.js"></script>');
 	}
 

@@ -1,4 +1,4 @@
-<?php
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 	echo $all_templates;
 ?>
 	<ul id="action_nav">

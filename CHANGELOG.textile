@@ -1,0 +1,13 @@
+h1. Change Log for Developer Info for ExpressionEngine 2.x
+
+h2. 1.0.2 (November 10, 2011)
+* HTML Code cleanup
+* CSS improvements / adjustments for IE
+* CSS adjustments for smaller screens
+
+h2. 1.0.1 (November 7, 2011)
+* Bug fix to be aware of when PHP short tags are off
+* CSS cleanup and improvements
+
+h2. 1.0.0 (October 27, 2011)
+* Initial Release

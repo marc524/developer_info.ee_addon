@@ -1,4 +1,4 @@
-<?php
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 /**
  * Config file for Developer Info
@@ -6,6 +6,7 @@
  * @package			Developer Info
  * @author			Marc Miller <http://www.bigoceanstudios.com>
  * @copyright 	Copyright (c) 2011 Big Ocean Studios <http://www.bigoceanstudios.com>
+ *							Inspired by Stephen Lewis' SL Developer Info for EE1.x
  * @link				http://github.com/marc524/developer_info.ee_addon/
  * @see					http://expressionengine.com/user_guide/development/module_tutorial.html
  */
@@ -27,7 +28,7 @@ define('DEVINFO_AUTHOR', 'Marc Miller');
 
 // Version: The version number of the add-on. It should follow
 // the same major.minor.bugfix scheme that EE follows.
-define('DEVINFO_VERSION', '1.0.1');
+define('DEVINFO_VERSION', '1.0.2');
 
 // URL: The URL users can go to for help
 define('DEVINFO_URL', 'github.com/marc524/developer_info.ee_addon');

@@ -1,5 +1,5 @@
-<?php
-	echo lang('jump_to'); echo $all_templates;
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+	echo '<div id="di_jump-nav">'; echo lang('jump_to'); echo $all_templates; echo '</div>';
 ?>
 	<ul id="action_nav">
 		<li class="button"><?= $templates_mgr_btn; ?></li>
@@ -11,8 +11,9 @@
 <?php
 		foreach($templates as $template):
 ?>
-			<h6 class="di"><?= $template['group_name']; ?></h6>
+			<h6 class="di"><?= $template['group_name']; ?>
 			<span class="di_template-links"><?= $template['new_template']; ?></span>
+			</h6>
 			<table class="mainTable" id="<?= $template['group_id']; ?>" border="0" cellspacing="0" cellpadding="0">
 				<thead>
 					<tr>
@@ -23,11 +24,12 @@
 						<th width="10%"><?= lang('template_php'); ?></th>
 					</tr>
 			</thead>
-			<tbody>
+			<tbody class="open" id="template_<?= $template['group_id']; ?>">
 					<?= $template['template_info']; ?>
 			</tbody>
 		</table>
+
 <?php
 	endforeach
 ?>
-<a href="#top"><strong>Scroll to top</strong></div>
+<div id="di_scroll-templates"><a href="#top"><strong>Scroll to top</strong></a></div>

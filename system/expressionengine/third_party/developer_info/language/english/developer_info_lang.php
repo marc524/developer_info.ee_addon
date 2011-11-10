@@ -8,7 +8,7 @@ $lang = array(
 'developer_info_channels'								=> 'Channels Information',
 'developer_info_files'									=> 'File Upload Locations',
 'developer_info_templates'							=> 'Template Groups',
-'developer_info_addons'									=> 'Addons',
+'developer_info_addons'									=> 'Addons', //future feature?
 
 // Some defaults
 'yes'																		=> 'Yes',
@@ -18,6 +18,10 @@ $lang = array(
 'siteid'																=> 'Site ID: ',
 'jump_to'																=> 'Jump to ',
 
+//Settings
+'settings_collapse_channels'						=> 'Collapse All Channels',
+'settings_collapse_templates'						=> 'Collapse All Templates',
+
 // Channel View Top Buttons
 'channel_new'														=> 'Create New Channel',
 'channel_new_field_group'								=> 'Create a New Channel Field Group',
@@ -25,6 +29,14 @@ $lang = array(
 'channel_new_category_group'						=> 'Create a New Category Group',
 'channels_all_fg_link'									=> 'View All Channel Field Groups',
 'wygwam_configs_link'										=> 'View All Wygwam Configs',
+'channel_short'													=> 'Short name',
+'channel_id'														=> 'Channel ID',
+'channel_hide'													=> 'Hide Channel Details -',
+'channel_show'													=> 'Show Channel Details +',
+'template_hide'													=> 'Hide Template Details -',
+'template_show'													=> 'Show Template Details +',
+'hide_all'															=> 'Hide All',
+'show_all'															=> 'Show All',
 
 // Channel View Header Row
 'channel_field_id'											=> 'ID',
@@ -106,7 +118,7 @@ $lang = array(
 
 // Errors
 'no_file_upload'												=> 'No Upload Directory',
-'no_file_set'														=> 'No File Upload Directory Set',
+'no_file_set'														=> 'No Upload Directory Selected (All Available)',
 'no_channels'														=> 'No Channels Created, yet',
 'no_file_uploads'												=> 'No Files Upload Locations',
 'no_templates'													=> 'No Templates Created, yet',

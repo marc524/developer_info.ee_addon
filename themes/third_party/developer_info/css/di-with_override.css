@@ -1,1 +1,21 @@
-.di_channel-links a { color: #333 !important; }
+h6.di { margin:30px 0 -10px; }
+.di_channel-links,
+.di_channel-links a,
+.di_channel-showhide,
+.di_channel-heading input {
+ 	color: #333 !important;
+}
+
+#di_site-id { top:20px; }
+#di_expand-controls { top:63px; }
+table.open + .di_templ-action {margin-top:-10px !important;}
+table.closed + .di_templ-action {margin-top:20px !important;}
+
+
+/* IE6, IE7, IE8 */
+table.mainTable th { background-image:none\9; }
+.mainTable > thead { background-color: #9aa9b3 !important;\9;}
+.di_channel-heading { background-color: #9aa9b3 !important;\9;}
+.di_channel-heading p { color: #333\9; }
+h2.di_head { background-color: #9aa9b3\9; color: #333\9; }
+h6.di { margin-bottom:5px\9; }
