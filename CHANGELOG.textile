@@ -1,5 +1,9 @@
 h1. Change Log for Developer Info for ExpressionEngine 2.x
 
+h2. 1.1 (November 10, 2011)
+* Added Show/Hide Channels Details ability - cookie based
+* Added Show/Hide Template Details ability - cookie based
+
 h2. 1.0.2 (November 10, 2011)
 * HTML Code cleanup
 * CSS improvements / adjustments for IE

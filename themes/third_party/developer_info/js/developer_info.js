@@ -20,14 +20,14 @@ jQuery(document).ready(function() {
 	$('.di_status-link').click(showStatus);
 	$('.di_query-link').click(showEntryQuery);
 
-/*
+
 	$('.di_channel-showhide').click(showHideChannels);
 	$('.di_template-showhide').click(showHideTemplates);
 	$('a.di_collapse-channel').click(hideAllChans);
 	$('a.di_expand-channel').click(showAllChans);
 	$('a.di_collapse-template').click(hideAllTempl);
 	$('a.di_expand-template').click(showAllTempl);
-*/
+
 	$(".di_link").addClass("di_hidden");
 
 });
@@ -147,16 +147,15 @@ function setTemplateClass() {
 	for(var name in cookies) {
 		var pat = 'exp_di_templ_';
 		if (name.match(pat)) {
-			var classVal = cookies[name];
+			var classVal = $.cookie(name);
 			name = name.substring(13);
-	  	classVal == 'open' ? 'closed' : 'open';
 	  	$('#' + name).addClass(classVal);
 
 	  	if (classVal == 'open') {
-	  		$('.' + name).text('Hide Template Details -');
+	  		$('.tmpl_' + name).text('Hide Template Details -');
 	  	}
 	  	if (classVal == 'closed') {
-	  		$('.' + name).text('Show Template Details +');
+	  		$('.tmpl_' + name).text('Show Template Details +');
 	  	}
 	  }
 	}

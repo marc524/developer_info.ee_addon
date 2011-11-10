@@ -1,6 +1,8 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 	echo '<div id="di_jump-nav">'; echo lang('jump_to'); echo $all_templates; echo '</div>';
 ?>
+  <script type="text/javascript">jQuery(document).ready(function() { setTemplateClass(); });</script>
+  <div id="di_expand-controls" class="di_font-two-smaller template-controls"><a href="#" class="di_collapse-template"><?= lang('hide_all'); ?></a>&nbsp;&nbsp;&bull;&nbsp;&nbsp;<a href="#" class="di_expand-template"><?= lang('show_all'); ?></a></div>
 	<ul id="action_nav">
 		<li class="button"><?= $templates_mgr_btn; ?></li>
 		<li class="button"><?= $templates_prefs_btn; ?></li>
@@ -28,6 +30,7 @@
 					<?= $template['template_info']; ?>
 			</tbody>
 		</table>
+		<div class="di_font-two-smaller di_templ-action"><a href="#" title="<?= $template['group_id']; ?>" class="di_template-showhide tmpl_<?= $template['group_id']; ?>"><?= lang('template_hide'); ?></a></div>
 
 <?php
 	endforeach
