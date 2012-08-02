@@ -152,6 +152,7 @@ ul#di_action_sub_nav li a:hover,
 .di_channel-fields-info-header {
 	background-color:#e9ebec !important;
 	font-weight:700;
+	font-size:.9em;
 }
 .di_channel-info {
 	padding: 12px 6px 6px 12px;

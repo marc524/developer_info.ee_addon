@@ -78,7 +78,7 @@ function showHideChannels() {
 					//write the cookie
 					$.cookie(di_cookie, state);
 
-					//add the closed class so we know what to do next time
+					//add the open class so we know what to do next time
 					$(theTbody).addClass('open');
 				}
 			});
@@ -113,7 +113,7 @@ function showHideTemplates() {
 					//write the cookie
 					$.cookie(di_cookie, state);
 
-					//add the closed class so we know what to do next time
+					//add the open class so we know what to do next time
 					$(theTbody).addClass('open');
 				}
 			});

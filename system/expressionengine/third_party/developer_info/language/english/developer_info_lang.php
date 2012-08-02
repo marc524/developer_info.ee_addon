@@ -17,10 +17,8 @@ $lang = array(
 'output'																=> 'Output',
 'siteid'																=> 'Site ID: ',
 'jump_to'																=> 'Jump to ',
-
-//Settings
-'settings_collapse_channels'						=> 'Collapse All Channels',
-'settings_collapse_templates'						=> 'Collapse All Templates',
+'hide_all'															=> 'Hide All',
+'show_all'															=> 'Show All',
 
 // Channel View Top Buttons
 'channel_new'														=> 'Create New Channel',
@@ -29,18 +27,14 @@ $lang = array(
 'channel_new_category_group'						=> 'Create a New Category Group',
 'channels_all_fg_link'									=> 'View All Channel Field Groups',
 'wygwam_configs_link'										=> 'View All Wygwam Configs',
+
+// Channel View Header Left Info
 'channel_short'													=> 'Short name',
 'channel_id'														=> 'Channel ID',
 'channel_hide'													=> 'Hide Channel Details -',
 'channel_show'													=> 'Show Channel Details +',
-'template_hide'													=> 'Hide Template Details -',
-'template_show'													=> 'Show Template Details +',
-'hide_all'															=> 'Hide All',
-'show_all'															=> 'Show All',
 
-// Channel View Header Row
-'channel_field_id'											=> 'ID',
-'channel_field_name'										=> 'Short Name',
+// Channel View Header Right Links
 'edit_entries'													=> 'View Channel Entries',
 'edit_prefs'														=> 'Edit Channel Preferences',
 'edit_groups'														=> 'Edit Channel Groups',
@@ -57,15 +51,22 @@ $lang = array(
 'all'																		=> 'All Directories',
 
 // Channel View Row Headers
+'channel_field_id'											=> 'ID',
+'channel_order_numb'										=> 'Order',
 'channel_field_label'										=> 'Label',
+'channel_field_name'										=> 'Short Name',
 'channel_field_type'										=> 'Type',
 'channel_col_head_info'									=> 'Fieldtype Info',
 'channel_field_format'									=> 'Format',
 'channel_field_mandatory'								=> 'Mandatory?',
 'channel_field_searchable'							=> 'Searchable?',
+'channel_field_viewable'								=> 'Viewable?',
 
 // Channel View Field Details
 'upload_dir'														=> 'Upload Dir: ',
+'upload_dirs'														=> 'Upload Dirs: ',
+'file_type'															=> 'File Type: ',
+'all_types'															=> 'All File Types',
 'pre-pop'																=> 'prepopulated from: ',
 'related'																=> 'relationship to: ',
 
@@ -115,6 +116,9 @@ $lang = array(
 'template_caching'											=> 'Caching Enabled?',
 'template_php'													=> 'PHP Enabled?',
 'templates_new_template'								=> 'New template in ',
+
+'template_hide'													=> 'Hide Template Details -',
+'template_show'													=> 'Show Template Details +',
 
 // Errors
 'no_file_upload'												=> 'No Upload Directory',

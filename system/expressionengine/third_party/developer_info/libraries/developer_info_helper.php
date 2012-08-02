@@ -47,6 +47,19 @@ class Developer_Info_helper
 	}
 
 	// ********************************************************************************* //
+	/* Check to see if EE's Fieldtype Safecracker File is installed */
+	function _check_ee_safecracker_file()
+	{
+		$wygwam_check = $this->EE->db->select('name')
+													->from('exp_fieldtypes')
+													->where('name', 'safecracker_file')
+													->limit(1)
+													->get();
+
+		return ($wygwam_check->num_rows == 1);
+	}
+
+	// ********************************************************************************* //
 	/* Check to see if Pixel & Tonic's Fieldtype Wygwam is installed */
 	function _check_pt_wygwam()
 	{
@@ -73,12 +86,38 @@ class Developer_Info_helper
 	}
 
 	// ********************************************************************************* //
+	/* Check to see if Pixel & Tonic's Fieldtype Assets is installed */
+	function _check_pt_assets()
+	{
+		$matrix_check = $this->EE->db->select('name')
+													->from('exp_fieldtypes')
+													->where('name', 'assets')
+													->limit(1)
+													->get();
+
+		return ($matrix_check->num_rows == 1);
+	}
+
+	// ********************************************************************************* //
 	/* Check to see if DevDemon's Fieldtype Channel Images is installed */
 	function _check_ci()
 	{
 		$ci_check = $this->EE->db->select('name')
 															->from('exp_fieldtypes')
 															->where('name', 'channel_images')
+															->limit(1)
+															->get();
+
+		return ($ci_check->num_rows == 1);
+	}
+
+	// ********************************************************************************* //
+	/* Check to see if DevDemon's Fieldtype Channel Files is installed */
+	function _check_cf()
+	{
+		$ci_check = $this->EE->db->select('name')
+															->from('exp_fieldtypes')
+															->where('name', 'channel_files')
 															->limit(1)
 															->get();
 
@@ -257,16 +296,57 @@ class Developer_Info_helper
 	/* Get the file directory and build the edit link */
 	function _get_file_dir($dir_id)
 	{
-		$file_dir_query = $this->EE->db->select('name')
-																		->from('exp_upload_prefs')
-																		->where('id', $dir_id)
-																		->get();
+		$file_dir = '<span class="di_font-smaller">' . lang('upload_dir');
 
-		$edit_file_dir =  BASE . AMP . 'C=content_files' . AMP . 'M=edit_upload_preferences' . AMP . 'id=' . $dir_id;
-		$file_dir = '<span class="di_font-smaller">' . lang('upload_dir') . '<a href="' . $edit_file_dir . '">' . $file_dir_query->row('name') . '</a></span>';
+		if ($dir_id == 'all') {
+			$file_dir .= lang('all');
+		} else {
+			$file_dir_query = $this->EE->db->select('name')
+																			->from('exp_upload_prefs')
+																			->where('id', $dir_id)
+																			->get();
+
+			$edit_file_dir =  BASE . AMP . 'C=content_files' . AMP . 'M=edit_upload_preferences' . AMP . 'id=' . $dir_id;
+			$file_dir .= '<a href="' . $edit_file_dir . '">' . $file_dir_query->row('name') . '</a>';
+		}
+
+		$file_dir .= '</span>';
 		return $file_dir;
 	}
 
+	// ********************************************************************************* //
+	/* Get the file directory allowed types */
+	function _get_file_dir_types($dir_type)
+	{
+		$file_dir = '<br /><span class="di_font-smaller">' . lang('file_type');
+		$file_dir .= ucfirst($dir_type);
+		$file_dir .= '</span>';
+		return $file_dir;
+	}
+
+	// ********************************************************************************* //
+	/* Get the file directories from array and build the edit links */
+	function _get_file_dir_array($dir_id)
+	{
+		$file_dir = '<span class="di_font-smaller">' . lang('upload_dirs');
+
+		if ($dir_id == 'all') {
+			$file_dir .= lang('all');
+		} else {
+			foreach ($dir_id as $dir) {
+				$file_dir_query = $this->EE->db->select('name')
+																				->from('exp_upload_prefs')
+																				->where('id', $dir)
+																				->get();
+
+				$edit_file_dir =  BASE . AMP . 'C=content_files' . AMP . 'M=edit_upload_preferences' . AMP . 'id=' . $dir_id;
+				$file_dir .= '<a href="' . $edit_file_dir . '">' . $file_dir_query->row('name') . '</a> | ';
+			}
+		}
+		$file_dir = substr($file_dir, 0, -3);
+		$file_dir .= '</span>';
+		return $file_dir;
+	}
 	// ********************************************************************************* //
 	/* Get the Wygwam config name and settings */
 	function _get_wygwam_config($config_id)
@@ -320,13 +400,13 @@ class Developer_Info_helper
 		$c='';
 		if ( !$group_id)
 		{
-			$c .= '<tr  class="di_row1"><td colspan="8">';
+			$c .= '<tr  class="di_row1"><td colspan="10">';
 			$c .= lang('no_fg');
 			$c .= "</td></tr>";
 		}
 		else
 		{
-			$channel_fields = $this->EE->db->select('field_id, group_id, field_name, field_label, field_type, field_fmt, field_required, field_search, field_settings, field_list_items, field_pre_channel_id, field_pre_field_id, field_related_id')
+			$channel_fields = $this->EE->db->select('field_id, group_id, field_order, field_name, field_label, field_type, field_fmt, field_required, field_search, field_settings, field_list_items, field_pre_channel_id, field_pre_field_id, field_related_id, field_is_hidden')
                     									->from('exp_channel_fields')
                     									->where('group_id', $group_id)
                     									->where('site_id', $this->_site_id)
@@ -343,16 +423,33 @@ class Developer_Info_helper
 					$wygwam_file_id = '';
 					$field_items_decoded = unserialize(base64_decode($row['field_settings']));
 
+//// CHECK FILE TYPES ////
+
 					// Get File directory information
 					if ($row['field_type'] == 'file')
 					{
 						if (array_key_exists('allowed_directories', $field_items_decoded))
 						{
 							$ft_info = $this->_get_file_dir($field_items_decoded['allowed_directories']);
+							$ft_info .= $this->_get_file_dir_types($field_items_decoded['field_content_type']);
 						}
 						else
 						{
 							$ft_info = lang('no_file_set');
+						}
+					}
+
+					// Get Safecracker File directory information
+					if ($row['field_type'] == 'safecracker_file')
+					{
+						if (array_key_exists('safecracker_upload_dir', $field_items_decoded))
+						{
+							$ft_info = $this->_get_file_dir($field_items_decoded['safecracker_upload_dir']);
+							$ft_info .= $this->_get_file_dir_types($field_items_decoded['file_field_content_type']);
+						}
+						else
+						{
+							$ft_info = lang('no_file_upload');
 						}
 					}
 
@@ -547,6 +644,19 @@ class Developer_Info_helper
 						}
 					}
 
+					// Get Assets details
+					if ($row['field_type'] == 'assets')
+					{
+						if (array_key_exists('filedirs', $field_items_decoded))
+						{
+							$ft_info = $this->_get_file_dir_array($field_items_decoded['filedirs']);
+						}
+						else
+						{
+							$ft_info = lang('no_file_upload');
+						}
+					}
+
 					// Get DevDemon's Channel Images details
 					if ($row['field_type'] == 'channel_images')
 					{
@@ -606,11 +716,26 @@ class Developer_Info_helper
 						if ($ci_location == 'local')
 						{
 							$ci_dir_id = $field_items_decoded['channel_images']['locations']['local']['location'];
-							$ci_location = $this->_get_file_dir($ci_dir_id). '</span>';
+							$ci_location = $this->_get_file_dir($ci_dir_id);
 						}
 						$ft_info .= $ci_location;
 
 					}
+
+					// Get DevDemon's Channel Files details
+					if ($row['field_type'] == 'channel_files')
+					{
+						$ft_info = '';
+						$cf_location = $field_items_decoded['channel_files']['upload_location'];
+						if ($cf_location == 'local')
+						{
+							$cf_dir_id = $field_items_decoded['channel_files']['locations']['local']['location'];
+							$cf_location = $this->_get_file_dir($cf_dir_id);
+						}
+						$ft_info .= $cf_location;
+					}
+
+//// MOVING ON ////
 
 					// Complete the row
 					$i = 1-$i;
@@ -618,6 +743,7 @@ class Developer_Info_helper
 
 					$c .= '<tr class="' . $class . '">';
 					$c .= '<td>' .$row['field_id']. '</td>';
+					$c .= '<td>' .$row['field_order']. '</td>';
 					$c .= '<td><a href="' . $edit_field_url . '">' .$row['field_label']. '</a></td>';
 					$c .= '<td><input type="text" class="di_short_name" onFocus="this.select()" value="{' .$row['field_name']. '}" /></td>';
 					$c .= '<td>' .$row['field_type']. '</td>';
@@ -630,6 +756,9 @@ class Developer_Info_helper
 					$c .= '</td>';
 					$c .= '<td>';
 					$c .= ($row['field_search'] == 'y') ? lang('yes') : lang('no');
+					$c .= '</td>';
+					$c .= '<td>';
+					$c .= ($row['field_is_hidden'] == 'n') ? lang('yes') : lang('no');
 					$c .= '</td>';
 					$c .= '</tr>';
 				}

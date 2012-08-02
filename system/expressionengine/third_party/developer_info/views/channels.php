@@ -19,7 +19,7 @@
 				<table class="mainTable" id="<?= $channel['channel_id']; ?>" border="0" cellspacing="0" cellpadding="0">
 					<thead>
 						<tr>
-							<th colspan="8" class="di_channel-heading">
+							<th colspan="10" class="di_channel-heading">
 								<h2 class="di_head"><?= $channel['channel_title']; ?></h2>
 								<p class="di_channel-links"><?= $channel['channel_edit_entries']; ?> | <?= $channel['chnnel_edit_preferences']; ?> | <?= $channel['channel_edit_groups']; ?><?php if(!empty($channel['field_group_id'])){ ?>
 								<br /><?= $channel['channel_edit_fg']; } ?><?php if(!empty($channel['field_group_id'])){ ?> | <?= $channel['channel_new_field']; }?></p>
@@ -33,7 +33,7 @@
 				<tbody id="channel_<?= $channel['channel_id']; ?>" class="open">
 
 					<tr class="di_channel-info">
-						<td colspan="8">
+						<td colspan="10">
 							<div class="di_col">
 								<div class="di_col_head"><?= lang('info_cats'); ?>:</div>
 								<div class="di_categories-link"><?= lang('show_cats'); ?></div>
@@ -60,6 +60,7 @@
 					</tr>
 					<tr class="di_channel-fields-info-header">
 						<td width="5%"><?= lang('channel_field_id'); ?></td>
+						<td width="5%"><?= lang('channel_order_numb'); ?></td>
 						<td width="15%"><?= lang('channel_field_label'); ?></td>
 						<td width="15%"><?= lang('channel_field_name'); ?></td>
 						<td width="10%"><?= lang('channel_field_type'); ?></td>
@@ -67,10 +68,11 @@
 						<td width="10%"><?= lang('channel_field_format'); ?></td>
 						<td width="5%"><?= lang('channel_field_mandatory'); ?></td>
 						<td width="5%"><?= lang('channel_field_searchable'); ?></td>
+						<td width="5%"><?= lang('channel_field_viewable'); ?></td>
 					</tr>
 					<?= $channel['channel_fields']; ?>
 					<tr class="di_channel-info">
-						<td colspan="8" class="di_font-smaller">
+						<td colspan="10" class="di_font-smaller">
 								<div class="di_query-link"><?= lang('show_query'); ?></div>
 								<div class="di_link">
 									<?= $channel['channel_query']; ?>
