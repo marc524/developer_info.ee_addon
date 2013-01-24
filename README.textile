@@ -9,6 +9,10 @@ h2. Installation
 * Login to your ExpressionEngine control panel
 * Install module by going to Add-Ons -> Modules, click the Install link next to Developer Info
 
+To use the German language, you will need to rename the Javascript files in the /themes/third_party/developer_info/js/ folder.
+* Change: developer_info.js to: developer_info-english.js
+* Change: developer_info-deutsch.js to: developer_info.js
+
 h2. Usage
 
 * Browse to Add-Ons -> Modules -> Developer Info

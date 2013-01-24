@@ -1,14 +1,18 @@
-h6.di { margin:30px 0 -10px; }
+h6.di { margin:30px 0 0px; }
 .di_left-info,
 .di_channel-links,
 .di_channel-links a,
+.di_template-links,
+.di_template-links a,
+.di_template-showhide,
 .di_channel-showhide,
 .di_channel-heading input {
  	color: #333 !important;
 }
 
 #di_site-id { top:20px; }
-#di_expand-controls { top:63px; }
+#di_expand-controls { top:60px; }
+#di_expand-controls.di_template-controls { top:36px; }
 table.open + .di_templ-action {margin-top:-10px !important;}
 table.closed + .di_templ-action {margin-top:20px !important;}
 
@@ -27,11 +31,14 @@ h6.di { margin-bottom:5px\9; }
 }
 h2.di_head{
 	color: #21282C;
-    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5)
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+    margin-top:5px;
 }
 .di_left-info,
 .di_channel-links,
 .di_channel-links a,
+.di_template-links,
+.di_template-links a,
 .di_channel-showhide,
 .di_channel-heading input {
  	font-weight:normal !important;

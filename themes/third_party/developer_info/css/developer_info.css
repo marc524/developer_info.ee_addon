@@ -7,7 +7,7 @@
 	top:58px;
 	width:300px;
 }
-#di_expand-controls.di_template-controls { top:38px; }
+#di_expand-controls.di_template-controls { top:8px; }
 #di_jump-nav {
 	position:absolute;
 	left:15px;
@@ -25,6 +25,7 @@ h6.di {
 	margin:30px 0 5px;
 	width:100%;
 	float:left;
+	position: relative;
 }
 #action_nav {
 	float:right;
@@ -45,6 +46,14 @@ ul#di_action_sub_nav li {
 	float:left;
 	display:inline;
 	margin:0 3px 5px;
+}
+.di_template-action {
+	font-size:10px;
+	font-weight: 400;
+	width:200px;
+	position: absolute;
+	left:34%;
+	top:5px;
 }
 ul#di_action_sub_nav li a,
 .di_template-links a {
@@ -90,11 +99,15 @@ ul#di_action_sub_nav li a:hover,
 	width:150px;
 	text-align:left;
 }
-.di_channel-heading .di_channel-links {
+.di_channel-heading .di_channel-links,
+.di_channel-heading .di_template-links {
 	text-align:right;
 	position:absolute;
 	right:24px;
 	line-height:24px;
+}
+.di_channel-heading .di_template-links {
+	top:0;
 }
 .di_channel-links a {
 	padding:0 5px !important;
@@ -104,12 +117,6 @@ ul#di_action_sub_nav li a:hover,
 	text-decoration:none  !important;
 }
 .di_template-links {
-	width:20%;
-	float:right;
-	text-align:right;
-	padding:4px 0 0;
-	font-size:.6em;
-	font-weight:normal;
 }
 .di_templ-action {
 	margin-left:4px;
@@ -133,7 +140,9 @@ ul#di_action_sub_nav li a:hover,
 }
 .di_categories-link,
 .di_status-link,
-.di_query-link {
+.di_query-link,
+.di_full-query-link,
+.di_template-query-link {
 	margin:2px 0 4px;
 	font-color:#999;
 	font-size:.9em;

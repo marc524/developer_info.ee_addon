@@ -5,10 +5,10 @@
  *
  * @package			Developer Info
  * @author			Marc Miller <http://www.bigoceanstudios.com>
- * @copyright 	Copyright (c) 2011 Big Ocean Studios <http://www.bigoceanstudios.com>
- *							Inspired by Stephen Lewis' SL Developer Info for EE1.x
- * @link				http://github.com/marc524/developer_info.ee_addon/
- * @see					http://expressionengine.com/user_guide/development/module_tutorial.html
+ * @copyright 		Copyright (c) 2013 Big Ocean Studios <http://www.bigoceanstudios.com>
+ *					Inspired by Stephen Lewis' SL Developer Info for EE1.x
+ * @link			http://github.com/marc524/developer_info.ee_addon/
+ * @see				http://expressionengine.com/user_guide/development/module_tutorial.html
  */
 
 // Name: The human readable name of the add-on. This is what
@@ -28,7 +28,7 @@ define('DEVINFO_AUTHOR', 'Marc Miller');
 
 // Version: The version number of the add-on. It should follow
 // the same major.minor.bugfix scheme that EE follows.
-define('DEVINFO_VERSION', '1.3');
+define('DEVINFO_VERSION', '1.4');
 
 // URL: The URL users can go to for help
 define('DEVINFO_URL', 'github.com/marc524/developer_info.ee_addon');

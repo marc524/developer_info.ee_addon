@@ -1,5 +1,12 @@
 h1. Change Log for Developer Info for ExpressionEngine 2.x
 
+h2. 1.4 (January 24, 2013)
+* Fixed to work with Assets 2.0
+* Added Additional, more robust Channel Query
+* Improved Templates page
+* minor code cleanup and bug fixes
+* added German Language pack
+
 h2. 1.3 (August 2, 2012)
 * Added support for Assets fieldtype
 * Added support for Channel Files fieldtype

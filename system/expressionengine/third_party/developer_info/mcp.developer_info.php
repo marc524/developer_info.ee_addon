@@ -22,7 +22,7 @@ class Developer_info_mcp extends BOSBase
 		$this->EE->load->library('developer_info_helper');
 
 		// Set base URL to the module so there's less typing elsewhere in this class.
-    $this->_base_url = BASE . AMP . 'C=addons_modules' . AMP . 'M=show_module_cp' . AMP . 'module=developer_info';
+    	$this->_base_url = BASE . AMP . 'C=addons_modules' . AMP . 'M=show_module_cp' . AMP . 'module=developer_info';
 
 		$this->_site_id = $this->EE->config->item('site_id');
 		$this->mcp_globals();
@@ -30,9 +30,9 @@ class Developer_info_mcp extends BOSBase
 		// Set the right nav
 		$this->EE->cp->set_right_nav(array(
 			'developer_info_channels' 	=> $this->_base_url,
-			'developer_info_files'  		=> $this->_base_url . AMP . 'method=files',
+			'developer_info_files'  	=> $this->_base_url . AMP . 'method=files',
 			'developer_info_templates'  => $this->_base_url . AMP . 'method=templates'
-		 ));
+		));
 	}
 
 
@@ -42,7 +42,7 @@ class Developer_info_mcp extends BOSBase
 	function index() {
 		$vars = array();
 
-    $this->EE->load->library('javascript');
+    	$this->EE->load->library('javascript');
 		$this->EE->load->library('table');
 		$this->EE->developer_info_helper->_set_page_title(lang('developer_info_module_name'), lang('developer_info_channels'));
 
@@ -66,10 +66,10 @@ class Developer_info_mcp extends BOSBase
 		//  Channels Query
 		// -------------------------------------------
 		$channel_query = $this->EE->db->select('channel_id, channel_name, channel_title, field_group, status_group, cat_group')
-                									->from('exp_channels')
-                									->where('site_id', $this->_site_id)
-                									->order_by('channel_title', 'asc')
-                									->get();
+										->from('exp_channels')
+										->where('site_id', $this->_site_id)
+										->order_by('channel_title', 'asc')
+										->get();
 
 		if ($channel_query->num_rows() > 0)
 		{
@@ -88,16 +88,17 @@ class Developer_info_mcp extends BOSBase
 				$vars['channels'][$row['channel_id']]['field_group_name'] = $this->EE->developer_info_helper->_display_field_group_name($row['field_group']);
 
 				$vars['channels'][$row['channel_id']]['channel_fields'] = $this->EE->developer_info_helper->_display_fields($row['field_group']);
-				$vars['channels'][$row['channel_id']]['channel_query'] = $this->EE->developer_info_helper->_generate_query($row['field_group'], $row['channel_id']);
+				$vars['channels'][$row['channel_id']]['channel_display_query'] = $this->EE->developer_info_helper->_generate_query($row['field_group'], $row['channel_id']);
+				$vars['channels'][$row['channel_id']]['channel_display_full_query'] = $this->EE->developer_info_helper->_generate_full_query($row['field_group'], $row['channel_id']);
 
 				$channel_edit_entries_link = BASE . AMP . 'C=content_edit' . AMP . 'channel_id=' . $row['channel_id'];
-				$chnnel_edit_preferences_link = $_base_admin_content . AMP . 'M=channel_edit' . AMP . 'channel_id=' . $row['channel_id'];
+				$channel_edit_preferences_link = $_base_admin_content . AMP . 'M=channel_edit' . AMP . 'channel_id=' . $row['channel_id'];
 				$channel_edit_groups_link = $_base_admin_content . AMP . 'M=channel_edit_group_assignments' . AMP . 'channel_id=' . $row['channel_id'];
 				$channel_edit_fg_link = $_base_admin_content . AMP . 'M=field_management' . AMP . 'group_id=' . $row['field_group'];
 				$channel_new_field_link = $_base_admin_content . AMP . 'M=field_edit' . AMP . 'group_id=' . $row['field_group'];
 
 				$vars['channels'][$row['channel_id']]['channel_edit_entries'] = '<a href="' . $channel_edit_entries_link . '">' . lang('edit_entries') . '</a>';
-				$vars['channels'][$row['channel_id']]['chnnel_edit_preferences'] = '<a href="' . $chnnel_edit_preferences_link . '">' . lang('edit_prefs') . '</a>';
+				$vars['channels'][$row['channel_id']]['channel_edit_preferences'] = '<a href="' . $channel_edit_preferences_link . '">' . lang('edit_prefs') . '</a>';
 				$vars['channels'][$row['channel_id']]['channel_edit_groups'] = '<a href="' . $channel_edit_groups_link . '">' . lang('edit_groups') . '</a>';
 				$vars['channels'][$row['channel_id']]['channel_edit_fg'] = '<a href="' . $channel_edit_fg_link . '">' . lang('edit_fg') . '<strong>"' . $this->EE->developer_info_helper->_display_field_group_name_quick($row['field_group']) . '"</strong></a>';
 				$vars['channels'][$row['channel_id']]['channel_new_field'] = '<a href="' . $channel_new_field_link . '">' . lang('channel_new_field') . '<strong>"' . $this->EE->developer_info_helper->_display_field_group_name_quick($row['field_group']) . '"</strong></a>';
@@ -122,7 +123,7 @@ class Developer_info_mcp extends BOSBase
 	function files() {
 		$vars = array();
 
-	  $this->EE->load->library('javascript');
+	 	$this->EE->load->library('javascript');
 		$this->EE->jquery->tablesorter(' .mainTable', '{
 			widgets: ["zebra"]
 		}');
@@ -142,10 +143,10 @@ class Developer_info_mcp extends BOSBase
 		//  Files Query
 		// -------------------------------------------
 		$files_query = $this->EE->db->select('id, name, server_path, url, allowed_types, max_size, max_height, max_width')
-              									->from('exp_upload_prefs')
-              									->where('site_id', $this->_site_id)
-              									->order_by('id', 'asc')
-              									->get();
+									->from('exp_upload_prefs')
+									->where('site_id', $this->_site_id)
+									->order_by('id', 'asc')
+									->get();
 
 		if ($files_query->num_rows())
 		{
@@ -178,12 +179,7 @@ class Developer_info_mcp extends BOSBase
 	function templates() {
 		$vars = array();
 
-	  $this->EE->load->library('javascript');
-		$this->EE->jquery->tablesorter(' .mainTable', '{
-			widgets: ["zebra"]
-		}');
-		$this->EE->javascript->compile();
-
+  		$this->EE->load->library('javascript');
 		$this->EE->developer_info_helper->_set_page_title(lang('developer_info_module_name'), lang('developer_info_templates'));
 
 		$_base_admin_design = BASE . AMP . 'C=design';
@@ -204,9 +200,9 @@ class Developer_info_mcp extends BOSBase
 		//  Templates Query
 		// -------------------------------------------
 		$templates_query = $this->EE->db->select('group_id, group_name, is_site_default')
-	                									->from('exp_template_groups')
-	                									->where('site_id', $this->_site_id)
-	                									->get();
+    									->from('exp_template_groups')
+    									->where('site_id', $this->_site_id)
+    									->get();
 
 		if ($templates_query->num_rows())
 		{
@@ -220,6 +216,7 @@ class Developer_info_mcp extends BOSBase
 
 				$vars['templates'][$row['group_id']]['template_info'] = $this->EE->developer_info_helper->_display_templates($row['group_id']);
 				$vars['templates'][$row['group_id']]['new_template'] = '<a href="' . $templates_new_temp_link . $row['group_id'] . '">' . lang('templates_new_template') . '<strong>' . $row['group_name'] . '</strong></a>';
+				$vars['templates'][$row['group_id']]['template_display_query'] = $this->EE->developer_info_helper->_generate_template_query($row['group_id']);
 			}
 
 			//Create the dropdown scroller navigation

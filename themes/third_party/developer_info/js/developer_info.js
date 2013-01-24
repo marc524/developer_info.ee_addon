@@ -4,22 +4,21 @@ jQuery(document).ready(function() {
 		if (target.length) {
 			var offset = target.offset().top;
 			$('html,body').animate({scrollTop: offset}, 1000);
-
 			return false;
 		}
-
 		return true;
 	});
 
 	$("a[href='#top']").click(function() {
-	  $("html, body").animate({ scrollTop: 0 }, 1000);
-	  return false;
+		$("html, body").animate({ scrollTop: 0 }, 1000);
+		return false;
 	});
 
 	$('.di_categories-link').click(showCategories);
 	$('.di_status-link').click(showStatus);
 	$('.di_query-link').click(showEntryQuery);
-
+	$('.di_full-query-link').click(showFullEntryQuery);
+	$('.di_template-query-link').click(showTemplateQuery);
 
 	$('.di_channel-showhide').click(showHideChannels);
 	$('.di_template-showhide').click(showHideTemplates);
@@ -28,7 +27,7 @@ jQuery(document).ready(function() {
 	$('a.di_collapse-template').click(hideAllTempl);
 	$('a.di_expand-template').click(showAllTempl);
 
-	$(".di_link").addClass("di_hidden");
+	$('.di_link').addClass('di_hidden');
 
 });
 
@@ -45,7 +44,19 @@ function showStatus() {
 }
 
 function showEntryQuery() {
-	$(this).text($(this).text() == 'Show Entry Query +' ? 'Hide Entry Query -' : 'Show Entry Query +');
+	$(this).text($(this).text() == 'Show Simple Channel Entry Query +' ? 'Hide Simple Channel Entry Query -' : 'Show Simple Channel Entry Query +');
+	$(this).next().slideToggle('fast');
+	return false;
+}
+
+function showFullEntryQuery() {
+	$(this).text($(this).text() == 'Show Full Channel Entry Query +' ? 'Hide Full Channel Entry Query -' : 'Show Full Channel Entry Query +');
+	$(this).next().slideToggle('fast');
+	return false;
+}
+
+function showTemplateQuery() {
+	$(this).text($(this).text() == 'Show Template Query +' ? 'Hide Template Query -' : 'Show Template Query +');
 	$(this).next().slideToggle('fast');
 	return false;
 }
@@ -56,32 +67,32 @@ function showHideChannels() {
 	var chan_id = $(this).attr('title');
 	var theTbody = ('#' + chan_id);
 	$(theTbody).slideToggle('fast',function(){
-				//clear out the classes and start fresh
-				$(theTbody).removeClass('closed');
-				$(theTbody).removeClass('open');
+		//clear out the classes and start fresh
+		$(theTbody).removeClass('closed');
+		$(theTbody).removeClass('open');
 
-				if ($(this).is(':hidden')) {
-					var state = 'closed';
-					var di_cookie = 'exp_di_chan_' + chan_id;
+		if ($(this).is(':hidden')) {
+			var state = 'closed';
+			var di_cookie = 'exp_di_chan_' + chan_id;
 
-					//write the cookie
-					$.cookie(di_cookie, state);
+			//write the cookie
+			$.cookie(di_cookie, state);
 
-					//add the closed class so we know what to do next time
-					$(theTbody).addClass('closed');
+			//add the closed class so we know what to do next time
+			$(theTbody).addClass('closed');
 
-				} else {
+		} else {
 
-					var state = 'open';
-					var di_cookie = 'exp_di_chan_' + chan_id;
+			var state = 'open';
+			var di_cookie = 'exp_di_chan_' + chan_id;
 
-					//write the cookie
-					$.cookie(di_cookie, state);
+			//write the cookie
+			$.cookie(di_cookie, state);
 
-					//add the open class so we know what to do next time
-					$(theTbody).addClass('open');
-				}
-			});
+			//add the open class so we know what to do next time
+			$(theTbody).addClass('open');
+		}
+	});
 	return false;
 }
 
@@ -91,32 +102,32 @@ function showHideTemplates() {
 	var templ_id = $(this).attr('title');
 	var theTbody = ('#' + templ_id);
 	$(theTbody).slideToggle('fast',function(){
-				//clear out the classes and start fresh
-				$(theTbody).removeClass('closed');
-				$(theTbody).removeClass('open');
+		//clear out the classes and start fresh
+		$(theTbody).removeClass('closed');
+		$(theTbody).removeClass('open');
 
-				if ($(this).is(':hidden')) {
-					var state = 'closed';
-					var di_cookie = 'exp_di_templ_' + templ_id;
+		if ($(this).is(':hidden')) {
+			var state = 'closed';
+			var di_cookie = 'exp_di_templ_' + templ_id;
 
-					//write the cookie
-					$.cookie(di_cookie, state);
+			//write the cookie
+			$.cookie(di_cookie, state);
 
-					//add the closed class so we know what to do next time
-					$(theTbody).addClass('closed');
+			//add the closed class so we know what to do next time
+			$(theTbody).addClass('closed');
 
-				} else {
+		} else {
 
-					var state = 'open';
-					var di_cookie = 'exp_di_templ_' + templ_id;
+			var state = 'open';
+			var di_cookie = 'exp_di_templ_' + templ_id;
 
-					//write the cookie
-					$.cookie(di_cookie, state);
+			//write the cookie
+			$.cookie(di_cookie, state);
 
-					//add the open class so we know what to do next time
-					$(theTbody).addClass('open');
-				}
-			});
+			//add the open class so we know what to do next time
+			$(theTbody).addClass('open');
+		}
+	});
 	return false;
 }
 
@@ -162,17 +173,17 @@ function setTemplateClass() {
 }
 
 function get_cookies_array() {
-			//read all the cookies to find ours
-	    var cookies = { };
-	    if (document.cookie && document.cookie != '') {
-	        var split = document.cookie.split(';');
-	        for (var i = 0; i < split.length; i++) {
-	            var name_value = split[i].split("=");
-	            name_value[0] = name_value[0].replace(/^ /, '');
-	            cookies[decodeURIComponent(name_value[0])] = decodeURIComponent(name_value[1]);
-	        }
-	    }
-	    return cookies;
+	//read all the cookies to find ours
+    var cookies = { };
+    if (document.cookie && document.cookie != '') {
+        var split = document.cookie.split(';');
+        for (var i = 0; i < split.length; i++) {
+            var name_value = split[i].split("=");
+            name_value[0] = name_value[0].replace(/^ /, '');
+            cookies[decodeURIComponent(name_value[0])] = decodeURIComponent(name_value[1]);
+        }
+    }
+    return cookies;
 }
 
 function showAllChans() {
@@ -200,14 +211,14 @@ function hideAllChans() {
 	$.each($('table.mainTable tbody'), function()
 	{
     	$(this).removeClass('open');
-			$(this).slideUp('fast');
-			$(this).addClass('closed');
-			var state = 'closed';
-			var chan_id = $(this).attr('id');
-			var di_cookie = 'exp_di_chan_' + chan_id;
+		$(this).slideUp('fast');
+		$(this).addClass('closed');
+		var state = 'closed';
+		var chan_id = $(this).attr('id');
+		var di_cookie = 'exp_di_chan_' + chan_id;
 
-			//write the cookie
-			$.cookie(di_cookie, state);
+		//write the cookie
+		$.cookie(di_cookie, state);
 	});
 
 	$.each($('a.di_channel-showhide'), function()
@@ -218,17 +229,17 @@ function hideAllChans() {
 }
 
 function showAllTempl() {
-	$.each($('table.mainTable'), function()
+	$.each($('table.mainTable tbody'), function()
     {
     	$(this).removeClass('closed');
-			$(this).slideDown('fast');
-			$(this).addClass('open');
-			var state = 'open';
-			var templ_id = $(this).attr('id');
-			var di_cookie = 'exp_di_templ_' + templ_id;
+		$(this).slideDown('fast');
+		$(this).addClass('open');
+		var state = 'open';
+		var templ_id = $(this).attr('id');
+		var di_cookie = 'exp_di_templ_' + templ_id;
 
-			//write the cookie
-			$.cookie(di_cookie, state);
+		//write the cookie
+		$.cookie(di_cookie, state);
 	});
 
 	$.each($('a.di_template-showhide'), function()
@@ -239,17 +250,17 @@ function showAllTempl() {
 }
 
 function hideAllTempl() {
-	$.each($('table.mainTable'), function()
+	$.each($('table.mainTable tbody'), function()
 	{
     	$(this).removeClass('open');
-			$(this).slideUp('fast');
-			$(this).addClass('closed');
-			var state = 'closed';
-			var templ_id = $(this).attr('id');
-			var di_cookie = 'exp_di_templ_' + templ_id;
+		$(this).slideUp('fast');
+		$(this).addClass('closed');
+		var state = 'closed';
+		var templ_id = $(this).attr('id');
+		var di_cookie = 'exp_di_templ_' + templ_id;
 
-			//write the cookie
-			$.cookie(di_cookie, state);
+		//write the cookie
+		$.cookie(di_cookie, state);
 	});
 
 	$.each($('a.di_template-showhide'), function()

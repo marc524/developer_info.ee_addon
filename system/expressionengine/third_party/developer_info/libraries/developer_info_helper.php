@@ -5,8 +5,8 @@
  *
  * @package			Developer Info
  * @author			Marc Miller <http://www.bigoceanstudios.com>
- * @copyright 	Copyright (c) 2011 Big Ocean Studios <http://www.bigoceanstudios.com>
- * @link				http://github.com/marc524/developer_info.ee_addon/
+ * @copyright 		Copyright (c) 2011 Big Ocean Studios <http://www.bigoceanstudios.com>
+ * @link			http://github.com/marc524/developer_info.ee_addon/
  */
 
 class Developer_Info_helper
@@ -26,9 +26,9 @@ class Developer_Info_helper
 		$this->_site_id = $this->EE->config->item('site_id');
 
 		// Set base URL to the module so there's less typing elsewhere in this class.
-    $this->_base_url = BASE. AMP . 'C=addons_modules' . AMP . 'M=show_module_cp' . AMP . 'module=developer_info';
-    $this->_base_url_admin = BASE. AMP . 'C=admin_content';
-    $this->_base_url_modules = BASE. AMP . 'C=addons_modules' . AMP . 'M=show_module_cp';
+   		$this->_base_url = BASE. AMP . 'C=addons_modules' . AMP . 'M=show_module_cp' . AMP . 'module=developer_info';
+    	$this->_base_url_admin = BASE. AMP . 'C=admin_content';
+    	$this->_base_url_modules = BASE. AMP . 'C=addons_modules' . AMP . 'M=show_module_cp';
 	}
 
 	// ********************************************************************************* //
@@ -51,10 +51,10 @@ class Developer_Info_helper
 	function _check_ee_safecracker_file()
 	{
 		$wygwam_check = $this->EE->db->select('name')
-													->from('exp_fieldtypes')
-													->where('name', 'safecracker_file')
-													->limit(1)
-													->get();
+							->from('exp_fieldtypes')
+							->where('name', 'safecracker_file')
+							->limit(1)
+							->get();
 
 		return ($wygwam_check->num_rows == 1);
 	}
@@ -64,10 +64,10 @@ class Developer_Info_helper
 	function _check_pt_wygwam()
 	{
 		$wygwam_check = $this->EE->db->select('name')
-													->from('exp_fieldtypes')
-													->where('name', 'wygwam')
-													->limit(1)
-													->get();
+							->from('exp_fieldtypes')
+							->where('name', 'wygwam')
+							->limit(1)
+							->get();
 
 		return ($wygwam_check->num_rows == 1);
 	}
@@ -77,10 +77,10 @@ class Developer_Info_helper
 	function _check_pt_matrix()
 	{
 		$matrix_check = $this->EE->db->select('name')
-													->from('exp_fieldtypes')
-													->where('name', 'matrix')
-													->limit(1)
-													->get();
+							->from('exp_fieldtypes')
+							->where('name', 'matrix')
+							->limit(1)
+							->get();
 
 		return ($matrix_check->num_rows == 1);
 	}
@@ -89,13 +89,13 @@ class Developer_Info_helper
 	/* Check to see if Pixel & Tonic's Fieldtype Assets is installed */
 	function _check_pt_assets()
 	{
-		$matrix_check = $this->EE->db->select('name')
-													->from('exp_fieldtypes')
-													->where('name', 'assets')
-													->limit(1)
-													->get();
+		$assets_check = $this->EE->db->select('name, version')
+						->from('exp_fieldtypes')
+						->where('name', 'assets')
+						->limit(1)
+						->get();
 
-		return ($matrix_check->num_rows == 1);
+		return ($assets_check->num_rows == 1);
 	}
 
 	// ********************************************************************************* //
@@ -103,10 +103,10 @@ class Developer_Info_helper
 	function _check_ci()
 	{
 		$ci_check = $this->EE->db->select('name')
-															->from('exp_fieldtypes')
-															->where('name', 'channel_images')
-															->limit(1)
-															->get();
+						->from('exp_fieldtypes')
+						->where('name', 'channel_images')
+						->limit(1)
+						->get();
 
 		return ($ci_check->num_rows == 1);
 	}
@@ -116,10 +116,10 @@ class Developer_Info_helper
 	function _check_cf()
 	{
 		$ci_check = $this->EE->db->select('name')
-															->from('exp_fieldtypes')
-															->where('name', 'channel_files')
-															->limit(1)
-															->get();
+						->from('exp_fieldtypes')
+						->where('name', 'channel_files')
+						->limit(1)
+						->get();
 
 		return ($ci_check->num_rows == 1);
 	}
@@ -145,11 +145,11 @@ class Developer_Info_helper
 
 					// Retrieve the category group name
 					$group_name = $this->EE->db->select('group_name')
-																			->from('exp_category_groups')
-																			->where('group_id', $group_id)
-																			->where('site_id', $this->_site_id)
-																			->limit(1)
-																			->get();
+									->from('exp_category_groups')
+									->where('group_id', $group_id)
+									->where('site_id', $this->_site_id)
+									->limit(1)
+									->get();
 
 					$c .= '<div class="di_list-head"><a href="' . $edit_url . '">(ID: ' . $group_id . ') ' . $group_name->row('group_name') . '</a></div>';
 					$c .= '<p>';
@@ -168,19 +168,19 @@ class Developer_Info_helper
 	{
 		$c = '';
 
-		$img_root			= '<img border="0" alt="" title="" height="14" src="' . $this->EE->config->item('theme_folder_url') . 'cp_global_images/';
+		$img_root = '<img border="0" alt="" title="" height="14" src="' . $this->EE->config->item('theme_folder_url') . 'cp_global_images/';
 		$nested_arrow = $img_root . 'cat_marker.gif" width="18" />';
-		$spacer				= $img_root . 'clear.gif" width="24" />';
-		$thin_spacer	= $img_root . 'clear.gif" width="1" />';
+		$spacer	= $img_root . 'clear.gif" width="24" />';
+		$thin_spacer = $img_root . 'clear.gif" width="1" />';
 
 		// Retrieve the categories.
 		$cats = $this->EE->db->select('cat_id, cat_name, parent_id')
-													->from('exp_categories')
-													->where('group_id', $group_id)
-													->where('parent_id', $parent_id)
-													->where('site_id', $this->_site_id)
-													->order_by('cat_order', 'asc')
-													->get();
+					->from('exp_categories')
+					->where('group_id', $group_id)
+					->where('parent_id', $parent_id)
+					->where('site_id', $this->_site_id)
+					->order_by('cat_order', 'asc')
+					->get();
 
 			if ($cats->num_rows > 0)
 			{
@@ -210,10 +210,10 @@ class Developer_Info_helper
 
 			// Retrieve the statuse group name.
 			$group_name = $this->EE->db->select('group_name')
-																->from('exp_status_groups')
-																->where('group_id', $group_id)
-																->where('site_id', $this->_site_id)
-																->get();
+							->from('exp_status_groups')
+							->where('group_id', $group_id)
+							->where('site_id', $this->_site_id)
+							->get();
 
 			if ($group_name->num_rows == 1)
 			{
@@ -223,11 +223,11 @@ class Developer_Info_helper
 
 				// Retrieve the statuses from this status group.
 				$statuses = $this->EE->db->select('status_id, status')
-																	->from('exp_statuses')
-																	->where('group_id', $group_id)
-																	->where('site_id', $this->_site_id)
-																	->order_by('status_order', 'asc')
-																	->get();
+								->from('exp_statuses')
+								->where('group_id', $group_id)
+								->where('site_id', $this->_site_id)
+								->order_by('status_order', 'asc')
+								->get();
 
 				if ($statuses->num_rows == 0)
 				{
@@ -278,10 +278,10 @@ class Developer_Info_helper
 			$edit_url = $this->_base_url_admin . AMP . 'M=field_management' . AMP . 'group_id=' . $group_id;
 
 			$group_name = $this->EE->db->select('group_name')
-																	->from('exp_field_groups')
-																	->where('group_id', $group_id)
-																	->where('site_id', $this->_site_id)
-																	->get();
+							->from('exp_field_groups')
+							->where('group_id', $group_id)
+							->where('site_id', $this->_site_id)
+							->get();
 
 			if ($group_name->num_rows == 1)
 			{
@@ -302,9 +302,9 @@ class Developer_Info_helper
 			$file_dir .= lang('all');
 		} else {
 			$file_dir_query = $this->EE->db->select('name')
-																			->from('exp_upload_prefs')
-																			->where('id', $dir_id)
-																			->get();
+								->from('exp_upload_prefs')
+								->where('id', $dir_id)
+								->get();
 
 			$edit_file_dir =  BASE . AMP . 'C=content_files' . AMP . 'M=edit_upload_preferences' . AMP . 'id=' . $dir_id;
 			$file_dir .= '<a href="' . $edit_file_dir . '">' . $file_dir_query->row('name') . '</a>';
@@ -333,11 +333,12 @@ class Developer_Info_helper
 		if ($dir_id == 'all') {
 			$file_dir .= lang('all');
 		} else {
-			foreach ($dir_id as $dir) {
+			foreach ($dir_id as $dir) { 
+				$dir = str_replace("ee:", "", $dir);
 				$file_dir_query = $this->EE->db->select('name')
-																				->from('exp_upload_prefs')
-																				->where('id', $dir)
-																				->get();
+									->from('exp_upload_prefs')
+									->where('id', $dir)
+									->get();
 
 				$edit_file_dir =  BASE . AMP . 'C=content_files' . AMP . 'M=edit_upload_preferences' . AMP . 'id=' . $dir_id;
 				$file_dir .= '<a href="' . $edit_file_dir . '">' . $file_dir_query->row('name') . '</a> | ';
@@ -352,9 +353,9 @@ class Developer_Info_helper
 	function _get_wygwam_config($config_id)
 	{
 		$query = $this->EE->db->select('config_name, settings')
-													->from('exp_wygwam_configs')
-													->where('config_id', $config_id)
-													->get();
+					->from('exp_wygwam_configs')
+					->where('config_id', $config_id)
+					->get();
 		return $query;
 	}
 
@@ -375,22 +376,22 @@ class Developer_Info_helper
 	/* Get the file directory for a Wygwam field and build the edit link */
 	function _get_wygwam_file_dir($config_id, $space='')
 	{
-			$c='';
-			$wygwam_config = $this->_get_wygwam_config($config_id);
-			$wygwam_settings_decoded = unserialize(base64_decode($wygwam_config->row('settings')));
-			$wygwam_file_id = $wygwam_settings_decoded['upload_dir'];
+		$c='';
+		$wygwam_config = $this->_get_wygwam_config($config_id);
+		$wygwam_settings_decoded = unserialize(base64_decode($wygwam_config->row('settings')));
+		$wygwam_file_id = $wygwam_settings_decoded['upload_dir'];
 
-			$edit_wygwam_config =  $this->_base_url_modules . AMP . 'module=wygwam' . AMP . 'method=config_edit' . AMP . 'config_id=' .$config_id;
-			$c = '<span class="di_font-smaller">' . lang('pt_config'). ':</span> ' . '<a href="' . $edit_wygwam_config . '">' . $wygwam_config->row('config_name') . '</a>';
-			if ($wygwam_file_id)
-			{
-				$c .= '<br /><span class="di_font-smaller">' . $space . $this->_get_file_dir($wygwam_file_id);
-			}
-			else
-			{
-				$c .= '<br /><span class="di_font-smaller">' . $space . lang('no_file_upload') . '</span>';
-			}
-			return $c;
+		$edit_wygwam_config =  $this->_base_url_modules . AMP . 'module=wygwam' . AMP . 'method=config_edit' . AMP . 'config_id=' .$config_id;
+		$c = '<span class="di_font-smaller">' . lang('pt_config'). ':</span> ' . '<a href="' . $edit_wygwam_config . '">' . $wygwam_config->row('config_name') . '</a>';
+		if ($wygwam_file_id)
+		{
+			$c .= '<br /><span class="di_font-smaller">' . $space . $this->_get_file_dir($wygwam_file_id);
+		}
+		else
+		{
+			$c .= '<br /><span class="di_font-smaller">' . $space . lang('no_file_upload') . '</span>';
+		}
+		return $c;
 	}
 
 	// ********************************************************************************* //
@@ -407,11 +408,11 @@ class Developer_Info_helper
 		else
 		{
 			$channel_fields = $this->EE->db->select('field_id, group_id, field_order, field_name, field_label, field_type, field_fmt, field_required, field_search, field_settings, field_list_items, field_pre_channel_id, field_pre_field_id, field_related_id, field_is_hidden')
-                    									->from('exp_channel_fields')
-                    									->where('group_id', $group_id)
-                    									->where('site_id', $this->_site_id)
-                    									->order_by('field_order', 'asc')
-                    									->get();
+								->from('exp_channel_fields')
+								->where('group_id', $group_id)
+								->where('site_id', $this->_site_id)
+								->order_by('field_order', 'asc')
+								->get();
 
 			if ($channel_fields->num_rows > 0)
 			{
@@ -423,7 +424,7 @@ class Developer_Info_helper
 					$wygwam_file_id = '';
 					$field_items_decoded = unserialize(base64_decode($row['field_settings']));
 
-//// CHECK FILE TYPES ////
+					//// CHECK FILE TYPES ////
 
 					// Get File directory information
 					if ($row['field_type'] == 'file')
@@ -461,10 +462,10 @@ class Developer_Info_helper
 							$field_id = $row['field_pre_field_id'];
 
 							$select_query = $this->EE->db->select('f.field_label, c.channel_title')
-                    												->from('exp_channel_fields f')
-                    												->join('exp_channels c', 'f.group_id = c.channel_id')
-                    												->where('f.field_id', $field_id)
-                    												->get();
+												->from('exp_channel_fields f')
+												->join('exp_channels c', 'f.group_id = c.channel_id')
+												->where('f.field_id', $field_id)
+												->get();
 
 							$ft_info = '<span class="di_font-smaller">' . lang('pre-pop'). '</span>';
 							$ft_info .= $select_query->row('channel_title') . ': ' . $select_query->row('field_label');
@@ -480,9 +481,9 @@ class Developer_Info_helper
 					{
 						$rel_id = $row['field_related_id'];
 						$rel_query = $this->EE->db->select('channel_title')
-																			->from('exp_channels')
-																			->where('channel_id', $rel_id)
-																			->get();
+										->from('exp_channels')
+										->where('channel_id', $rel_id)
+										->get();
 
 						$ft_info = '<span class="di_font-smaller">' . lang('related'). '</span>';
 						$ft_info .= $rel_query->row('channel_title');
@@ -532,9 +533,9 @@ class Developer_Info_helper
 							foreach($playa_channels as $channel)
 							{
 								$channel_query = $this->EE->db->select('channel_title')
-																							->from('exp_channels')
-																							->where('channel_id', $channel)
-																							->get();
+													->from('exp_channels')
+													->where('channel_id', $channel)
+													->get();
 
 								$ft_info .= '&nbsp;&nbsp;' . $channel_query->row('channel_title') . '<br />';
 							}
@@ -546,9 +547,9 @@ class Developer_Info_helper
 							foreach($playa_cats as $cat)
 							{
 								$cats_query = $this->EE->db->select('cat_name')
-																					->from('exp_categories')
-																					->where('cat_id', $cat)
-																					->get();
+												->from('exp_categories')
+												->where('cat_id', $cat)
+												->get();
 
 								$ft_info .= '&nbsp;&nbsp;' . $cats_query->row('cat_name') . '<br />';
 							}
@@ -560,9 +561,9 @@ class Developer_Info_helper
 							foreach($playa_authors as $author)
 							{
 								$author_query = $this->EE->db->select('screen_name')
-																							->from('exp_members')
-																							->where('member_id', $author)
-																							->get();
+													->from('exp_members')
+													->where('member_id', $author)
+													->get();
 
 								$ft_info .= '&nbsp;&nbsp;' . $author_query->row('screen_name') . '<br />';
 							}
@@ -578,7 +579,7 @@ class Developer_Info_helper
 						}
 					}
 
-					// Get Wywam details
+					// Get Wygwam details
 					if ($row['field_type'] == 'wygwam')
 					{
 						$config_id = $field_items_decoded['config'];
@@ -590,9 +591,9 @@ class Developer_Info_helper
 					{
 						$config_id = $row['field_id'];
 						$matrix_query = $this->EE->db->select('col_id, col_name, col_label, col_type, col_required, col_search, col_settings')
-																			->from('exp_matrix_cols')
-																			->where('field_id', $config_id)
-																			->get();
+											->from('exp_matrix_cols')
+											->where('field_id', $config_id)
+											->get();
 
 						foreach($matrix_query->result_array() as $matrix_row)
 						{
@@ -655,6 +656,7 @@ class Developer_Info_helper
 						{
 							$ft_info = lang('no_file_upload');
 						}
+						
 					}
 
 					// Get DevDemon's Channel Images details
@@ -735,7 +737,7 @@ class Developer_Info_helper
 						$ft_info .= $cf_location;
 					}
 
-//// MOVING ON ////
+					//// MOVING ON ////
 
 					// Complete the row
 					$i = 1-$i;
@@ -776,20 +778,54 @@ class Developer_Info_helper
 		$c .= "SELECT entry_id, channel_id";
 
 		$channel_fields = $this->EE->db->select('field_id')
-	          												->from('exp_channel_fields')
-                  									->where('group_id', $group_id)
-                  									->where('site_id', $this->_site_id)
-                    								->order_by('field_order', 'asc')
-	          												->get();
+						->from('exp_channel_fields')
+						->where('group_id', $group_id)
+						->where('site_id', $this->_site_id)
+						->order_by('field_order', 'asc')
+						->get();
 
-    foreach ($channel_fields->result_array() AS $row)
-    {
-    	//if (array_key_exists('field_id', $channel_fields)) {
-    		$c .= ", field_id_";
+	    foreach ($channel_fields->result_array() AS $row)
+	    {
+	    	//if (array_key_exists('field_id', $channel_fields)) {
+	    		$c .= ", field_id_";
 				$c .= $row['field_id'];
 			//}
-    }
-    $c .= " FROM exp_channel_data WHERE channel_id = ";
+	    }
+	    $c .= " FROM exp_channel_data WHERE channel_id = ";
+		$c .= $channel_id;
+		$c .= "</textarea>";
+
+		return $c;
+	}
+
+	// ********************************************************************************* //
+	/* Show each channel field SQL query with JOIN on channel titles  */
+	function _generate_full_query($group_id, $channel_id)
+	{
+		$c='';
+		$c .= "<textarea rows='2' style='width:900px;font-size:11px;' onFocus='this.select()'>";
+		$c .= "SELECT t.title AS 'Title', d.entry_id AS 'Entry ID'";
+
+		$channel_fields = $this->EE->db->select('field_id,field_label')
+						->from('exp_channel_fields')
+						->where('group_id', $group_id)
+						->where('site_id', $this->_site_id)
+						->order_by('field_order', 'asc')
+						->get();
+
+	    foreach ($channel_fields->result_array() AS $row)
+	    {
+	    	//if (array_key_exists('field_id', $channel_fields)) {
+	    		$c .= ", d.field_id_";
+				$c .= $row['field_id'];
+				$c .= " AS '";
+				$c .= $row['field_label'];
+				$c .= "'";
+			//}
+	    }
+	    $c .= " FROM exp_channel_data d";
+		$c .= " INNER JOIN exp_channel_titles t ON t.entry_id = d.entry_id";
+	    $c .= " WHERE d.channel_id = ";
 		$c .= $channel_id;
 		$c .= "</textarea>";
 
@@ -803,11 +839,11 @@ class Developer_Info_helper
 		$c='';
 
 		$templates_files = $this->EE->db->select('template_id, template_name, save_template_file, template_type, cache, allow_php, php_parse_location')
-	          												->from('exp_templates')
-                  									->where('group_id', $template_group_id)
-                  									->where('site_id', $this->_site_id)
-                    								->order_by('template_name', 'asc')
-	          												->get();
+								->from('exp_templates')
+								->where('group_id', $template_group_id)
+								->where('site_id', $this->_site_id)
+								->order_by('template_name', 'asc')
+								->get();
 
 		if ($templates_files->num_rows > 0)
 		{
@@ -844,6 +880,21 @@ class Developer_Info_helper
 		return $c;
 	}
 
+	// ********************************************************************************* //
+	/* Show each channel field SQL query  */
+	function _generate_template_query($template_group_id)
+	{
+		$c='';
+		$c .= "<textarea rows='2' style='width:900px;font-size:11px;' onFocus='this.select()'>";
+		$c .= "SELECT t.template_id AS 'Template ID', t.template_name AS 'Template Name', t.template_data AS 'Template', g.group_name AS 'Template Group'";
+	    $c .= " FROM exp_templates t";
+		$c .= " INNER JOIN exp_template_groups g ON g.group_id = t.group_id";
+		$c .= " WHERE t.group_id = ";
+		$c .= $template_group_id;
+		$c .= "</textarea>";
+
+		return $c;
+	}
 
 } // END CLASS
 
