@@ -1,5 +1,8 @@
 h1. Change Log for Developer Info for ExpressionEngine 2.x
 
+h2. 1.4.1 (April 4, 2013)
+* Fixed a bug with DI and Assets
+
 h2. 1.4 (January 24, 2013)
 * Fixed to work with Assets 2.0
 * Added Additional, more robust Channel Query

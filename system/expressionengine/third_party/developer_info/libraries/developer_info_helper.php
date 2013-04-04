@@ -5,7 +5,7 @@
  *
  * @package			Developer Info
  * @author			Marc Miller <http://www.bigoceanstudios.com>
- * @copyright 		Copyright (c) 2011 Big Ocean Studios <http://www.bigoceanstudios.com>
+ * @copyright 		Copyright (c) 2013 Big Ocean Studios <http://www.bigoceanstudios.com>
  * @link			http://github.com/marc524/developer_info.ee_addon/
  */
 
@@ -297,7 +297,7 @@ class Developer_Info_helper
 	function _get_file_dir($dir_id)
 	{
 		$file_dir = '<span class="di_font-smaller">' . lang('upload_dir');
-
+		
 		if ($dir_id == 'all') {
 			$file_dir .= lang('all');
 		} else {
@@ -340,7 +340,7 @@ class Developer_Info_helper
 									->where('id', $dir)
 									->get();
 
-				$edit_file_dir =  BASE . AMP . 'C=content_files' . AMP . 'M=edit_upload_preferences' . AMP . 'id=' . $dir_id;
+				$edit_file_dir =  BASE . AMP . 'C=content_files' . AMP . 'M=edit_upload_preferences' . AMP . 'id=' . $dir;
 				$file_dir .= '<a href="' . $edit_file_dir . '">' . $file_dir_query->row('name') . '</a> | ';
 			}
 		}
