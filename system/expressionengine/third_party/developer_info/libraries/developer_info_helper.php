@@ -376,14 +376,19 @@ class Developer_Info_helper
 	/* Get the file directory for a Wygwam field and build the edit link */
 	function _get_wygwam_file_dir($config_id, $space='')
 	{
+		$wygwam_file_id = '';
 		$c='';
 		$wygwam_config = $this->_get_wygwam_config($config_id);
 		$wygwam_settings_decoded = unserialize(base64_decode($wygwam_config->row('settings')));
-		$wygwam_file_id = $wygwam_settings_decoded['upload_dir'];
+
+		if (array_key_exists('upload_dir', $wygwam_settings_decoded))
+		{
+			$wygwam_file_id = $wygwam_settings_decoded['upload_dir'];
+		}
 
 		$edit_wygwam_config =  $this->_base_url_modules . AMP . 'module=wygwam' . AMP . 'method=config_edit' . AMP . 'config_id=' .$config_id;
 		$c = '<span class="di_font-smaller">' . lang('pt_config'). ':</span> ' . '<a href="' . $edit_wygwam_config . '">' . $wygwam_config->row('config_name') . '</a>';
-		if ($wygwam_file_id)
+		if ($wygwam_file_id !='')
 		{
 			$c .= '<br /><span class="di_font-smaller">' . $space . $this->_get_file_dir($wygwam_file_id);
 		}
