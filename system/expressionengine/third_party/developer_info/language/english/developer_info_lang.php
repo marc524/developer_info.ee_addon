@@ -90,6 +90,7 @@ $lang = array(
 'pt_playa_status'							=> 'Status Relationships',
 'pt_matrix_searchable'						=> 'searchable',
 'pt_matrix_required'						=> 'required',
+'rel_member_group'							=> 'Group',
 
 // File Uploads View
 'files_id'									=> 'ID',

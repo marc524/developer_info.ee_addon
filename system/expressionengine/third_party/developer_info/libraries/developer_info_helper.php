@@ -43,7 +43,14 @@ class Developer_Info_helper
 		{
 			$line = $line . ': ' . $page;
 		}
-		$this->EE->cp->set_variable('cp_page_title', $this->EE->lang->line($line));
+		if (APP_VER >= '2.6')
+		{
+			$this->EE->view->cp_page_title = $this->EE->lang->line($line);
+		} 
+		else 
+		{
+			$this->EE->cp->set_variable('cp_page_title', $this->EE->lang->line($line));
+		}
 	}
 
 	// ********************************************************************************* //
@@ -412,7 +419,12 @@ class Developer_Info_helper
 		}
 		else
 		{
-			$channel_fields = $this->EE->db->select('field_id, group_id, field_order, field_name, field_label, field_type, field_fmt, field_required, field_search, field_settings, field_list_items, field_pre_channel_id, field_pre_field_id, field_related_id, field_is_hidden')
+			$channel_select = 'field_id, group_id, field_order, field_name, field_label, field_type, field_fmt, field_required, field_search, field_settings, field_list_items, field_pre_channel_id, field_pre_field_id, field_is_hidden';
+
+			if (APP_VER < '2.6')
+				$channel_select .= ', field_related_id';
+
+			$channel_fields = $this->EE->db->select($channel_select)
 								->from('exp_channel_fields')
 								->where('group_id', $group_id)
 								->where('site_id', $this->_site_id)
@@ -481,7 +493,7 @@ class Developer_Info_helper
 						}
 					}
 
-					// Get Relationship details
+					// Get Relationship details (2.5.5 and older)
 					if ($row['field_type'] == 'rel')
 					{
 						$rel_id = $row['field_related_id'];
@@ -492,6 +504,90 @@ class Developer_Info_helper
 
 						$ft_info = '<span class="di_font-smaller">' . lang('related'). '</span>';
 						$ft_info .= $rel_query->row('channel_title');
+					}
+
+					// Get Relationship details (2.6)
+					if ($row['field_type'] == 'relationship')
+					{
+						$ft_info = '';
+						$rel_info_decoded = unserialize(base64_decode($row['field_settings']));
+						if (array_key_exists('channels', $rel_info_decoded))
+						{
+							$rel_channels = $rel_info_decoded['channels'];
+
+							if(count($rel_channels)>0)
+								$ft_info .= '<span class="di_font-smaller">' . lang('pt_playa_channel'). '</span><br />';
+
+							foreach($rel_channels as $channel)
+							{
+								$channel_query = $this->EE->db->select('channel_title')
+													->from('exp_channels')
+													->where('channel_id', $channel)
+													->get();
+
+								$ft_info .= '&nbsp;&nbsp;' . $channel_query->row('channel_title') . '<br />';
+							}
+						}
+						if (array_key_exists('categories', $rel_info_decoded))
+						{
+							$rel_cats = $rel_info_decoded['categories'];
+
+							if(count($rel_cats)>0)
+								$ft_info .= '<span class="di_font-smaller">' . lang('pt_playa_cats'). '</span><br />';
+							
+							foreach($rel_cats as $cat)
+							{
+								$cats_query = $this->EE->db->select('cat_name')
+												->from('exp_categories')
+												->where('cat_id', $cat)
+												->get();
+
+								$ft_info .= '&nbsp;&nbsp;' . $cats_query->row('cat_name') . '<br />';
+							}
+						}
+						if (array_key_exists('authors', $rel_info_decoded))
+						{
+							$rel_authors = $rel_info_decoded['authors'];
+
+							if(count($rel_authors)>0)
+								$ft_info .= '<span class="di_font-smaller">' . lang('pt_playa_author'). '</span><br />';
+							
+							foreach($rel_authors as $author)
+							{
+								if(strpos($author, 'm_')!== false)
+								{
+									$author_id = substr($author, 2);
+									$author_query = $this->EE->db->select('screen_name')
+													->from('exp_members')
+													->where('member_id', $author_id)
+													->get();
+
+									$ft_info .= '&nbsp;&nbsp;' . $author_query->row('screen_name') . '<br />';			
+								}
+								if(strpos($author, 'g_')!== false)
+								{
+									$author_group_id = substr($author, 2);
+									$author_query = $this->EE->db->select('group_title')
+													->from('exp_member_groups')
+													->where('group_id', $author_group_id)
+													->get();
+
+									$ft_info .= '&nbsp;&nbsp;' . lang('rel_member_group') . ':&nbsp;' . $author_query->row('group_title') . '<br />';			
+								}
+							}
+						}
+						if (array_key_exists('statuses', $rel_info_decoded))
+						{
+							$rel_statuses = $rel_info_decoded['statuses'];
+
+							if(count($rel_statuses)>0)
+								$ft_info .= '<span class="di_font-smaller">' . lang('pt_playa_status'). '</span><br />';
+							
+							foreach($rel_statuses as $status)
+							{
+								$ft_info .= '&nbsp;&nbsp;' . $status . '<br />';
+							}
+						}
 					}
 
 					// Get PT Switch details

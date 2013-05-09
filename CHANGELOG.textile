@@ -1,5 +1,8 @@
 h1. Change Log for Developer Info for ExpressionEngine 2.x
 
+h2. 1.5 (May 9, 2013)
+* Updated to work with EE 2.6 and the new Relationships
+
 h2. 1.4.2 (April 5, 2013)
 * Fixed a bug with DI and Wygwam
 
