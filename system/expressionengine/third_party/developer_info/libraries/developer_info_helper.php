@@ -590,8 +590,8 @@ class Developer_Info_helper
 						}
 					}
 
-					// Get PT Switch details
-					if ($row['field_type'] == 'pt_switch')
+					// Get PT Switch and PT Fieldpack Switch details
+					if ($row['field_type'] == 'pt_switch' || $row['field_type'] == 'fieldpack_switch')
 					{
 						$field_items_decoded = unserialize(base64_decode($row['field_settings']));
 						$pt_off_label = $field_items_decoded['off_label'];
@@ -605,20 +605,33 @@ class Developer_Info_helper
 						$ft_info .= lang('pt_on_label') . ': ' . $pt_on_label . '<br />';
 						$ft_info .= lang('pt_on_value') . ': ' . $pt_on_val . '<br />';
 						$ft_info .= lang('pt_default') . ': ' . $pt_default;
-					}
+					}				
 
-					// Get the rest of the PT Dive Bar FT details
-					if ($row['field_type'] == 'pt_pill' || $row['field_type'] == 'pt_dropdown' || $row['field_type'] == 'pt_checkboxes' || $row['field_type'] == 'pt_multiselect' || $row['field_type'] == 'pt_multiselect' || $row['field_type'] == 'pt_radio_buttons')
+					// Get the rest of the PT Dive Bar FT and New PT Fieldpack details
+					if ($row['field_type'] == 'pt_pill' || 
+						$row['field_type'] == 'pt_dropdown' || 
+						$row['field_type'] == 'pt_checkboxes' || 
+						$row['field_type'] == 'pt_multiselect' || 
+						$row['field_type'] == 'pt_radio_buttons' ||
+						$row['field_type'] == 'fieldpack_pill' || 
+						$row['field_type'] == 'fieldpack_dropdown' || 
+						$row['field_type'] == 'fieldpack_checkboxes' || 
+						$row['field_type'] == 'fieldpack_multiselect' || 
+						$row['field_type'] == 'fieldpack_radio_buttons'
+						)
 					{
 						$ft_info = '';
 						$field_items_decoded = unserialize(base64_decode($row['field_settings']));
-						$pt_options = $field_items_decoded['options'];
-						foreach ($pt_options as $field_options=>$value)
+						if (array_key_exists('options', $field_items_decoded))
 						{
-							$ft_info .= $field_options;
-							$ft_info .= ' : ';
-							$ft_info .= $value;
-							$ft_info .= '<br />';
+							$pt_options = $field_items_decoded['options'];
+							foreach ($pt_options as $field_options=>$value)
+							{
+								$ft_info .= $field_options;
+								$ft_info .= ' : ';
+								$ft_info .= $value;
+								$ft_info .= '<br />';
+							}
 						}
 					}
 
@@ -742,6 +755,7 @@ class Developer_Info_helper
 							$ft_info .= '<br /><span class="di_font-smaller">&nbsp;&nbsp;&nbsp;' . $matrix_row['col_type'];
 							if ($matrix_row['col_search'] == 'y') $ft_info .= '&nbsp;&nbsp;|&nbsp;&nbsp;' . lang('pt_matrix_searchable');
 							if ($matrix_row['col_required'] == 'y') $ft_info .= '&nbsp;&nbsp;|&nbsp;&nbsp;' . lang('pt_matrix_required');
+							$ft_info .= ' ('. $matrix_row['col_id'] .')';
 							$ft_info .= '</span><br /><br />';
 						}
 					}

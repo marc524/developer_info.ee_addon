@@ -1,5 +1,8 @@
 h1. Change Log for Developer Info for ExpressionEngine 2.x
 
+h2. 1.6 (July 18, 2013)
+* Adjusted to work with new PT Fieldpack v2.x
+
 h2. 1.5 (May 9, 2013)
 * Updated to work with EE 2.6 and the new Relationships
 

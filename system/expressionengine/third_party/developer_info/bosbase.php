@@ -4,8 +4,8 @@
  * Base File so we don't have to repeat ourself. I'm lazy.
  *
  * @author			Marc Miller <http://www.bigoceanstudios.com>
- * @copyright 	Copyright (c) 2011 Big Ocean Studios <http://www.bigoceanstudios.com>
- * @see					https://github.com/markhuot/geode.ee_addon
+ * @copyright 		Copyright (c) 2011 Big Ocean Studios <http://www.bigoceanstudios.com>
+ * @see				https://github.com/markhuot/geode.ee_addon
  */
 
 class BOSBase
