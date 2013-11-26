@@ -1,5 +1,10 @@
 h1. Change Log for Developer Info for ExpressionEngine 2.x
 
+h2. 1.7 (November 23, 2013)
+* Added support for URL_THIRD_THEMES (thanks Aaron Waldon!)
+* Added support for EE 2.7 Grid Fieldtype
+* Bug fixes for EE 2.7
+
 h2. 1.6 (July 18, 2013)
 * Adjusted to work with new PT Fieldpack v2.x
 

@@ -449,7 +449,14 @@ class Developer_Info_helper
 						if (array_key_exists('allowed_directories', $field_items_decoded))
 						{
 							$ft_info = $this->_get_file_dir($field_items_decoded['allowed_directories']);
-							$ft_info .= $this->_get_file_dir_types($field_items_decoded['field_content_type']);
+
+							//hmm, 2.7 seems to have changed this:
+							if (array_key_exists('field_content_type', $field_items_decoded))
+								$ft_info .= $this->_get_file_dir_types($field_items_decoded['field_content_type']);
+							
+							if (array_key_exists('content_type', $field_items_decoded))
+								$ft_info .= $this->_get_file_dir_types($field_items_decoded['content_type']);
+							
 						}
 						else
 						{
@@ -493,7 +500,7 @@ class Developer_Info_helper
 						}
 					}
 
-					// Get Relationship details (2.5.5 and older)
+					// Get Relationship details (EE 2.5.5 and older)
 					if ($row['field_type'] == 'rel')
 					{
 						$rel_id = $row['field_related_id'];
@@ -506,7 +513,7 @@ class Developer_Info_helper
 						$ft_info .= $rel_query->row('channel_title');
 					}
 
-					// Get Relationship details (2.6)
+					// Get Relationship details (EE 2.6)
 					if ($row['field_type'] == 'relationship')
 					{
 						$ft_info = '';
@@ -699,6 +706,52 @@ class Developer_Info_helper
 						$config_id = $field_items_decoded['config'];
 						$ft_info = $this->_get_wygwam_file_dir($config_id);
 					}
+
+					// Grid (EE 2.7)
+					if ($row['field_type'] == 'grid')
+					{
+						$config_id = $row['field_id'];
+						$grid_query = $this->EE->db->select('col_id, col_name, col_label, col_type, col_required, col_search, col_settings')
+											->from('exp_grid_columns')
+											->where('field_id', $config_id)
+											->get();
+
+						foreach($grid_query->result_array() as $grid_row)
+						{
+							$grid_file_directory = '';
+							if ($grid_row['col_type'] == 'file')
+							{
+								$grid_file_directory = '<br /><span class="di_font-smaller">&nbsp;&nbsp;&nbsp;';
+								$grid_file_dir_decoded = json_decode($grid_row['col_settings'],true);
+
+								if (array_key_exists('allowed_directories', $grid_file_dir_decoded))
+								{
+									$grid_file_dir_id = $grid_file_dir_decoded['allowed_directories'];
+
+									if ($grid_file_dir_id != 'all')
+									{
+										$grid_file_directory .= $this->_get_file_dir($grid_file_dir_id);
+									}
+									else
+									{
+										$grid_file_directory .= lang('all');
+									}
+								}
+								else
+								{
+									$grid_file_directory .= lang('all');
+								}
+							}
+
+							$ft_info .= '<strong>' . $grid_row['col_label'] . '</strong>' . $grid_file_directory . '<br /><input type="text" class="di_short_name" onFocus="this.select()" value="{' . $grid_row['col_name'] . '}" />';
+							$ft_info .= '<br /><span class="di_font-smaller">&nbsp;&nbsp;&nbsp;' . $grid_row['col_type'];
+							if ($grid_row['col_search'] == 'y') $ft_info .= '&nbsp;&nbsp;|&nbsp;&nbsp;' . lang('pt_matrix_searchable');
+							if ($grid_row['col_required'] == 'y') $ft_info .= '&nbsp;&nbsp;|&nbsp;&nbsp;' . lang('pt_matrix_required');
+							$ft_info .= ' ('. $grid_row['col_id'] .')';
+							$ft_info .= '</span><br /><br />';
+						}
+					}
+
 
 					// Get Matrix details
 					if ($row['field_type'] == 'matrix')
