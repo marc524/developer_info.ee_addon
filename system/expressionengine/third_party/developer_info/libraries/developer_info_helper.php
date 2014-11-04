@@ -260,7 +260,8 @@ class Developer_Info_helper
 	{
 		$edit_url = $this->_base_url_admin . AMP . 'M=field_management' . AMP . 'group_id=' . $group_id;
 		$c='';
-		if ($group_id) {
+		if ($group_id)
+		{
 			$field_group_name = $this->_display_field_group_name_quick($group_id);
 			$c .= '<div class="di_list-head"><a href="' . $edit_url . '">(ID: ' . $group_id . ') ' . $field_group_name . '</a></div>';
 		}
@@ -305,16 +306,22 @@ class Developer_Info_helper
 	{
 		$file_dir = '<span class="di_font-smaller">' . lang('upload_dir');
 		
-		if ($dir_id == 'all') {
+		if ($dir_id == 'all') 
+		{
 			$file_dir .= lang('all');
-		} else {
+		} 
+		else 
+		{
 			$file_dir_query = $this->EE->db->select('name')
 								->from('exp_upload_prefs')
 								->where('id', $dir_id)
 								->get();
 
-			$edit_file_dir =  BASE . AMP . 'C=content_files' . AMP . 'M=edit_upload_preferences' . AMP . 'id=' . $dir_id;
-			$file_dir .= '<a href="' . $edit_file_dir . '">' . $file_dir_query->row('name') . '</a>';
+			if ($file_dir_query->num_rows() > 0)
+			{
+				$edit_file_dir =  BASE . AMP . 'C=content_files' . AMP . 'M=edit_upload_preferences' . AMP . 'id=' . $dir_id;
+				$file_dir .= '<a href="' . $edit_file_dir . '">' . $file_dir_query->row('name') . '</a>';
+			}
 		}
 
 		$file_dir .= '</span>';
@@ -337,10 +344,14 @@ class Developer_Info_helper
 	{
 		$file_dir = '<span class="di_font-smaller">' . lang('upload_dirs');
 
-		if ($dir_id == 'all') {
+		if ($dir_id == 'all') 
+		{
 			$file_dir .= lang('all');
-		} else {
-			foreach ($dir_id as $dir) { 
+		} 
+		else 
+		{
+			foreach ($dir_id as $dir) 
+			{ 
 				$dir = str_replace("ee:", "", $dir);
 				$file_dir_query = $this->EE->db->select('name')
 									->from('exp_upload_prefs')
@@ -395,9 +406,10 @@ class Developer_Info_helper
 
 		$edit_wygwam_config =  $this->_base_url_modules . AMP . 'module=wygwam' . AMP . 'method=config_edit' . AMP . 'config_id=' .$config_id;
 		$c = '<span class="di_font-smaller">' . lang('pt_config'). ':</span> ' . '<a href="' . $edit_wygwam_config . '">' . $wygwam_config->row('config_name') . '</a>';
+
 		if ($wygwam_file_id !='')
 		{
-			$c .= '<br /><span class="di_font-smaller">' . $space . $this->_get_file_dir($wygwam_file_id);
+			$c .= '<br /><span class="di_font-smaller">' . $space . $this->_get_file_dir($wygwam_file_id). '</span>';
 		}
 		else
 		{

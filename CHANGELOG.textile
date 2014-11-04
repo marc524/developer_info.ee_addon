@@ -1,5 +1,9 @@
 h1. Change Log for Developer Info for ExpressionEngine 2.x
 
+h2. 1.7.1 (November 4, 2014)
+* Fixed bug in File Directories function
+* Minor code cleanup
+
 h2. 1.7 (November 23, 2013)
 * Added support for URL_THIRD_THEMES (thanks Aaron Waldon!)
 * Added support for EE 2.7 Grid Fieldtype
