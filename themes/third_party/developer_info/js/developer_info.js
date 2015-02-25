@@ -20,12 +20,12 @@ jQuery(document).ready(function() {
 	$('.di_full-query-link').click(showFullEntryQuery);
 	$('.di_template-query-link').click(showTemplateQuery);
 
-	$('.di_channel-showhide').click(showHideChannels);
-	$('.di_template-showhide').click(showHideTemplates);
-	$('a.di_collapse-channel').click(hideAllChans);
-	$('a.di_expand-channel').click(showAllChans);
-	$('a.di_collapse-template').click(hideAllTempl);
-	$('a.di_expand-template').click(showAllTempl);
+	// Show/Hide All Rows
+	$('.di_collapse').click(hideAllSections);
+	$('.di_expand').click(showAllSections);
+
+	// Show/Hide Specific Rows
+	$('.di_showhide').click(showHideSection);
 
 	$('.di_link').addClass('di_hidden');
 
@@ -61,211 +61,165 @@ function showTemplateQuery() {
 	return false;
 }
 
-function showHideChannels() {
-	$(this).text($(this).text() == 'Hide Channel Details -' ? 'Show Channel Details +' : 'Hide Channel Details -');
-
-	var chan_id = $(this).attr('title');
-	var theTbody = ('#' + chan_id);
-	$(theTbody).slideToggle('fast',function(){
-		//clear out the classes and start fresh
-		$(theTbody).removeClass('closed');
-		$(theTbody).removeClass('open');
-
-		if ($(this).is(':hidden')) {
-			var state = 'closed';
-			var di_cookie = 'exp_di_chan_' + chan_id;
-
-			//write the cookie
-			$.cookie(di_cookie, state);
-
-			//add the closed class so we know what to do next time
-			$(theTbody).addClass('closed');
-
-		} else {
-
-			var state = 'open';
-			var di_cookie = 'exp_di_chan_' + chan_id;
-
-			//write the cookie
-			$.cookie(di_cookie, state);
-
-			//add the open class so we know what to do next time
-			$(theTbody).addClass('open');
-		}
-	});
-	return false;
+function initTemplateClasses() 
+{
+	var diList = cookieList("developer_info");
+	diList.tmpls();
 }
 
-function showHideTemplates() {
-	$(this).text($(this).text() == 'Hide Template Details -' ? 'Show Template Details +' : 'Hide Template Details -');
-
-	var templ_id = $(this).attr('title');
-	var theTbody = ('#' + templ_id);
-	$(theTbody).slideToggle('fast',function(){
-		//clear out the classes and start fresh
-		$(theTbody).removeClass('closed');
-		$(theTbody).removeClass('open');
-
-		if ($(this).is(':hidden')) {
-			var state = 'closed';
-			var di_cookie = 'exp_di_templ_' + templ_id;
-
-			//write the cookie
-			$.cookie(di_cookie, state);
-
-			//add the closed class so we know what to do next time
-			$(theTbody).addClass('closed');
-
-		} else {
-
-			var state = 'open';
-			var di_cookie = 'exp_di_templ_' + templ_id;
-
-			//write the cookie
-			$.cookie(di_cookie, state);
-
-			//add the open class so we know what to do next time
-			$(theTbody).addClass('open');
-		}
-	});
-	return false;
+function initChannelClasses() 
+{
+	var diList = cookieList("developer_info");
+	diList.chnls();
 }
 
-function setChannelClass() {
+function showAllSections()
+{
+	var $this = $(this);
+	var diList = cookieList("developer_info");
 
-	var cookies = get_cookies_array();
-	for(var name in cookies) {
-		var pat = 'exp_di_chan_';
-		if (name.match(pat)) {
-			var classVal = cookies[name];
-			name = name.substring(12);
-	  	classVal == 'open' ? 'closed' : 'open';
-	  	$('#' + name).addClass(classVal);
-
-	  	if (classVal == 'open') {
-	  		$('.' + name).text('Hide Channel Details -');
-	  	}
-	  	if (classVal == 'closed') {
-	  		$('.' + name).text('Show Channel Details +');
-	  	}
-	  }
-	}
-}
-
-function setTemplateClass() {
-
-	var cookies = get_cookies_array();
-	for(var name in cookies) {
-		var pat = 'exp_di_templ_';
-		if (name.match(pat)) {
-			var classVal = $.cookie(name);
-			name = name.substring(13);
-	  	$('#' + name).addClass(classVal);
-
-	  	if (classVal == 'open') {
-	  		$('.tmpl_' + name).text('Hide Template Details -');
-	  	}
-	  	if (classVal == 'closed') {
-	  		$('.tmpl_' + name).text('Show Template Details +');
-	  	}
-	  }
-	}
-}
-
-function get_cookies_array() {
-	//read all the cookies to find ours
-    var cookies = { };
-    if (document.cookie && document.cookie != '') {
-        var split = document.cookie.split(';');
-        for (var i = 0; i < split.length; i++) {
-            var name_value = split[i].split("=");
-            name_value[0] = name_value[0].replace(/^ /, '');
-            cookies[decodeURIComponent(name_value[0])] = decodeURIComponent(name_value[1]);
-        }
-    }
-    return cookies;
-}
-
-function showAllChans() {
-	$.each($('table.mainTable tbody'), function()
-    {
-    	$(this).removeClass('closed');
-			$(this).slideDown('fast');
-			$(this).addClass('open');
-			var state = 'open';
-			var chan_id = $(this).attr('id');
-			var di_cookie = 'exp_di_chan_' + chan_id;
-
-			//write the cookie
-			$.cookie(di_cookie, state);
-	});
-
-	$.each($('a.di_channel-showhide'), function()
-	{
-		//change the link text
-		$(this).text('Hide Channel Details -');
-	});
-}
-
-function hideAllChans() {
-	$.each($('table.mainTable tbody'), function()
-	{
-    	$(this).removeClass('open');
-		$(this).slideUp('fast');
-		$(this).addClass('closed');
-		var state = 'closed';
-		var chan_id = $(this).attr('id');
-		var di_cookie = 'exp_di_chan_' + chan_id;
-
-		//write the cookie
-		$.cookie(di_cookie, state);
-	});
-
-	$.each($('a.di_channel-showhide'), function()
-	{
-		//change the link text
-		$(this).text('Show Channel Details +');
-	});
-}
-
-function showAllTempl() {
-	$.each($('table.mainTable tbody'), function()
+	$.each($('table.mainTable tbody.di_viewable'), function()
     {
     	$(this).removeClass('closed');
 		$(this).slideDown('fast');
 		$(this).addClass('open');
-		var state = 'open';
-		var templ_id = $(this).attr('id');
-		var di_cookie = 'exp_di_templ_' + templ_id;
+		var section_id = $(this).attr('id');
+		var di_cookie_close = section_id + 'X';
+		var di_cookie_open = section_id + 'O';
+
+		//clear the cookie of any previous
+		diList.remove( di_cookie_close );
+		diList.remove( di_cookie_open );
 
 		//write the cookie
-		$.cookie(di_cookie, state);
+		diList.add( di_cookie_open );
 	});
 
-	$.each($('a.di_template-showhide'), function()
+	$.each($('a.di_showhide'), function()
 	{
 		//change the link text
-		$(this).text('Hide Template Details -');
+		$(this).text('Hide Details -');
 	});
 }
 
-function hideAllTempl() {
-	$.each($('table.mainTable tbody'), function()
-	{
+function hideAllSections()
+{
+	var $this = $(this);
+	var diList = cookieList("developer_info");
+
+	$.each($('table.mainTable tbody.di_viewable'), function()
+    {
     	$(this).removeClass('open');
 		$(this).slideUp('fast');
 		$(this).addClass('closed');
-		var state = 'closed';
-		var templ_id = $(this).attr('id');
-		var di_cookie = 'exp_di_templ_' + templ_id;
+		var section_id = $(this).attr('id');
+		var di_cookie_close = section_id + 'X';
+		var di_cookie_open = section_id + 'O';
+
+		//clear the cookie of any previous
+		diList.remove( di_cookie_close );
+		diList.remove( di_cookie_open );
 
 		//write the cookie
-		$.cookie(di_cookie, state);
+		diList.add( di_cookie_close );
 	});
 
-	$.each($('a.di_template-showhide'), function()
+	$.each($('a.di_showhide'), function()
 	{
 		//change the link text
-		$(this).text('Show Template Details +');
+		$(this).text('Show Details +');
 	});
+}
+
+function showHideSection() 
+{
+	var $this = $(this);
+	var diList = cookieList("developer_info");
+	$(this).text($(this).text() == 'Hide Details -' ? 'Show Details +' : 'Hide Details -');
+
+	var section_id = $(this).attr('title');
+	var theTbody = ('#' + section_id);
+	$(theTbody).slideToggle('fast',function(){
+		//clear out the classes and start fresh
+		$(theTbody).removeClass('closed');
+		$(theTbody).removeClass('open');
+		var di_cookie_close = section_id + 'X';
+		var di_cookie_open = section_id + 'O';
+		diList.remove( di_cookie_close );
+		diList.remove( di_cookie_open );
+
+		if ($(this).is(':hidden')) {
+			//write the cookie
+			diList.add( di_cookie_close );
+
+			//add the closed class so we know what to do next time
+			$(theTbody).addClass('closed');
+
+		} else {
+			//write the cookie
+			diList.add( di_cookie_open );
+
+			//add the open class so we know what to do next time
+			$(theTbody).addClass('open');
+		}
+	});
+
+	return false;
+}
+var cookieList = function(cookieName) {
+	//http://stackoverflow.com/questions/1959455/how-to-store-an-array-in-jquery-cookie
+    //When the cookie is saved the items will be a comma seperated string
+    //So we will split the cookie by comma to get the original array
+    var cookie = $.cookie(cookieName);
+    //Load the items or a new array if null.
+    var items = cookie ? cookie.split(/,/) : new Array();
+
+    //Return a object that we can use to access the array.
+    //while hiding direct access to the declared items array
+    //this is called closures see http://www.jibbering.com/faq/faq_notes/closures.html
+    return {
+        "add": function(val) {
+            items.push(val);
+            $.cookie(cookieName, items.join(','));
+        },
+        "remove": function (val) { 
+            indx = items.indexOf(val); 
+            if(indx!=-1) items.splice(indx, 1); 
+            $.cookie(cookieName, items.join(','));        
+        },
+        "items": function() {
+            return items;
+        },
+        "tmpls": function() {
+        	var i; 
+        	for (i = 0; i < items.length; ++i) {
+        		if (items[i].toString().match(/(t|l)[0-9]+[X]/g)) {
+        			var htname = items[i].substring(0, items[i].length - 1);
+        			$('#' + htname).removeClass('open').addClass('closed');
+        			$('.' + htname).text('Show Details +');
+        		}
+        		if (items[i].toString().match(/(t|l)[0-9]+[O]/g)) {
+        			var stname = items[i].substring(0, items[i].length - 1);
+        			$('#' + stname).removeClass('closed').addClass('open');
+        			$('.' + stname).text('Hide Details -');
+        		}      		
+        	}
+        },
+        "chnls": function() {
+        	var i; 
+        	//get only the channel row IDs
+        	for (i = 0; i < items.length; ++i) {
+        		if (items[i].toString().match(/c[0-9]+[X]/g)) {
+        			var hcname = items[i].substring(0, items[i].length - 1);
+        			$('#' + hcname).removeClass('open').addClass('closed');
+        			$('.' + hcname).text('Show Details +');
+        		}
+        		if (items[i].toString().match(/c[0-9]+[O]/g)) {
+        			var scname = items[i].substring(0, items[i].length - 1);
+        			$('#' + scname).removeClass('closed').addClass('open');
+        			$('.' + scname).text('Hide Details -');
+        		}        		
+        	}
+        }
+    }
 }

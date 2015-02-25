@@ -1,9 +1,9 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 	echo '<div id="di_jump-nav">'; echo lang('jump_to'); echo $all_channels; echo '</div>'; echo $site_id;
 ?>
-	<script type="text/javascript">jQuery(document).ready(function() { setChannelClass(); });</script>
+	<script type="text/javascript">jQuery(document).ready(function() { initChannelClasses(); });</script>
 
-	<div id="di_expand-controls" class="di_font-two-smaller"><a href="#" class="di_collapse-channel"><?= lang('hide_all'); ?></a>&nbsp;&nbsp;&bull;&nbsp;&nbsp;<a href="#" class="di_expand-channel"><?= lang('show_all'); ?></a></div>
+	<div id="di_expand-controls" class="di_font-two-smaller"><a href="#" class="di_collapse-channel di_collapse"><?= lang('hide_all'); ?></a>&nbsp;&nbsp;&bull;&nbsp;&nbsp;<a href="#" class="di_expand-channel di_expand"><?= lang('show_all'); ?></a></div>
 	
 	<ul id="action_nav">
 		<li class="button"><?= $channels_new_btn; ?></li>
@@ -27,11 +27,11 @@
 						<br /><?= $channel['channel_edit_fg']; } ?><?php if(!empty($channel['field_group_id'])){ ?> | <?= $channel['channel_new_field']; }?></p>
 						<p class="di_left-info"><?= lang('channel_short'); ?>: <input type="text" class="di_short_name" onFocus="this.select()" value="<?= $channel['channel_name']; ?>">
 						<br /><?= lang('channel_id'); ?>: <?= $channel['channel_id']; ?></p>
-						<div class="di_font-two-smaller"><a href="#" title="channel_<?= $channel['channel_id']; ?>" class="di_channel-showhide channel_<?= $channel['channel_id']; ?>"><?= lang('channel_hide'); ?></a></div>
+						<div class="di_font-two-smaller"><a href="#" title="c<?= $channel['channel_id']; ?>" class="di_channel-showhide di_showhide c<?= $channel['channel_id']; ?>"><?= lang('details_hide'); ?></a></div>
 					</th>
 				</tr>
 			</thead>
-			<tbody id="channel_<?= $channel['channel_id']; ?>" class="open">
+			<tbody id="c<?= $channel['channel_id']; ?>" class="open di_viewable">
 				<tr class="di_channel-info">
 					<td colspan="10">
 						<div class="di_col">

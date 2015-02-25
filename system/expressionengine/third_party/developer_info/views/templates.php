@@ -1,9 +1,9 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 	echo '<div id="di_jump-nav">'; echo lang('jump_to'); echo $all_templates; echo '</div>';
 ?>
-  	<script type="text/javascript">jQuery(document).ready(function() { setTemplateClass(); });</script>
+  	<script type="text/javascript">jQuery(document).ready(function() { initTemplateClasses(); });</script>
 
-  	<div id="di_expand-controls" class="di_font-two-smaller di_template-controls"><a href="#" class="di_collapse-template"><?= lang('hide_all'); ?></a>&nbsp;&nbsp;&bull;&nbsp;&nbsp;<a href="#" class="di_expand-template"><?= lang('show_all'); ?></a></div>
+  	<div id="di_expand-controls" class="di_font-two-smaller di_template-controls"><a href="#" class="di_collapse-template di_collapse"><?= lang('hide_all'); ?></a>&nbsp;&nbsp;&bull;&nbsp;&nbsp;<a href="#" class="di_expand-template di_expand"><?= lang('show_all'); ?></a></div>
   
 	<ul id="action_nav">
 		<li class="button"><?= $templates_mgr_btn; ?></li>
@@ -23,11 +23,11 @@
 						<p class="di_template-links"><?= $template['new_template']; ?></p>
 						<p class="di_left-info"><?= lang('template_group_id'); ?>: <?= $template['group_id']; ?></p>
 						
-						<div class="di_font-two-smaller"><a href="#" title="template_<?= $template['group_id']; ?>" class="di_template-showhide tmpl_<?= $template['group_id']; ?>"><?= lang('template_hide'); ?></a></div>
+						<div class="di_font-two-smaller"><a href="#" title="t<?= $template['group_id']; ?>" class="di_template-showhide di_showhide t<?= $template['group_id']; ?>"><?= lang('details_hide'); ?></a></div>
 					</th>
 				</tr>
 			</thead>
-			<tbody id="template_<?= $template['group_id']; ?>" class="open">
+			<tbody id="t<?= $template['group_id']; ?>" class="open di_viewable">
 				<tr class="di_channel-fields-info-header">
 					<th width="35%"><?= lang('template_name'); ?></th>
 					<th width="20%"><?= lang('template_type'); ?></th>

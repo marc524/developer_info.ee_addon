@@ -1,5 +1,8 @@
 h1. Change Log for Developer Info for ExpressionEngine 2.x
 
+h2. 1.8 (February 25, 2015)
+* Improved Cookie handling (sorry for all the cookie spam - that was lazy programming)
+
 h2. 1.7.1 (November 4, 2014)
 * Fixed bug in File Directories function
 * Minor code cleanup

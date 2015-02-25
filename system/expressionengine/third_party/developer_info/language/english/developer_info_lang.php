@@ -18,6 +18,8 @@ $lang = array(
 'jump_to'									=> 'Jump to ',
 'hide_all'									=> 'Hide All',
 'show_all'									=> 'Show All',
+'details_show'								=> 'Show Details +',
+'details_hide'								=> 'Hide Details -',
 
 // Channel View Top Buttons
 'channel_new'								=> 'Create New Channel',
@@ -30,8 +32,6 @@ $lang = array(
 // Channel View Header Left Info
 'channel_short'								=> 'Short name',
 'channel_id'								=> 'Channel ID',
-'channel_hide'								=> 'Hide Channel Details -',
-'channel_show'								=> 'Show Channel Details +',
 
 // Channel View Header Right Links
 'edit_entries'								=> 'View Channel Entries',
