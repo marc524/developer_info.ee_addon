@@ -43,7 +43,7 @@ class Developer_Info_helper
 		{
 			$line = $line . ': ' . $page;
 		}
-		if (APP_VER >= '2.6')
+		if (version_compare(APP_VER, '2.6.0', '>='))	
 		{
 			$this->EE->view->cp_page_title = $this->EE->lang->line($line);
 		} 
