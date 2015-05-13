@@ -28,7 +28,7 @@ define('DEVINFO_AUTHOR', 'Marc Miller');
 
 // Version: The version number of the add-on. It should follow
 // the same major.minor.bugfix scheme that EE follows.
-define('DEVINFO_VERSION', '1.8');
+define('DEVINFO_VERSION', '1.8.1');
 
 // URL: The URL users can go to for help
 define('DEVINFO_URL', 'github.com/marc524/developer_info.ee_addon');

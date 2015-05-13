@@ -43,7 +43,7 @@ class Developer_Info_helper
 		{
 			$line = $line . ': ' . $page;
 		}
-		if (APP_VER >= '2.6')
+		if (version_compare(APP_VER, '2.6', '>='))
 		{
 			$this->EE->view->cp_page_title = $this->EE->lang->line($line);
 		} 
@@ -433,7 +433,7 @@ class Developer_Info_helper
 		{
 			$channel_select = 'field_id, group_id, field_order, field_name, field_label, field_type, field_fmt, field_required, field_search, field_settings, field_list_items, field_pre_channel_id, field_pre_field_id, field_is_hidden';
 
-			if (APP_VER < '2.6')
+			if (version_compare(APP_VER, '2.6', '>='))
 				$channel_select .= ', field_related_id';
 
 			$channel_fields = $this->EE->db->select($channel_select)
