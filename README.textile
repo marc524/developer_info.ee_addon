@@ -17,3 +17,12 @@ h2. Usage
 
 * Browse to Add-Ons -> Modules -> Developer Info
 * It is recommended that you click the +Add link in the top navigation to create a quick access link to this page.
+
+h2. Developer Info Pro is now available!
+
+With Developer Info Pro, you get all the features you love about Developer Info 1.x, but now you can speed up your initial development phase tremendously! Now you can create channels, field groups, custom fields, statuses, and categories all from one page!
+
+Check out Developer Info Pro today!
+
+* "Devloper Info Pro on Devot:ee":https://devot-ee.com/add-ons/developer-info-pro
+* "Devloper Info Pro preview video":https://www.youtube.com/watch?v=mq2EjGsWuxo
