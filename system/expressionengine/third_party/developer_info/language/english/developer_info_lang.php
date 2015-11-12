@@ -91,6 +91,7 @@ $lang = array(
 'pt_matrix_searchable'						=> 'searchable',
 'pt_matrix_required'						=> 'required',
 'rel_member_group'							=> 'Group',
+'pt_playa_current'							=> 'THIS CHANNEL',
 
 // File Uploads View
 'files_id'									=> 'ID',

@@ -665,12 +665,19 @@ class Developer_Info_helper
 							$playa_channels = $playa_info_decoded['channels'];
 							foreach($playa_channels as $channel)
 							{
-								$channel_query = $this->EE->db->select('channel_title')
-													->from('exp_channels')
-													->where('channel_id', $channel)
-													->get();
+								if($channel==0)
+								{
+									$ft_info .= '&nbsp;&nbsp;' . lang('pt_playa_current'). '<br />';
+								}
+								else
+								{
+									$channel_query = $this->EE->db->select('channel_title')
+														->from('exp_channels')
+														->where('channel_id', $channel)
+														->get();
 
-								$ft_info .= '&nbsp;&nbsp;' . $channel_query->row('channel_title') . '<br />';
+									$ft_info .= '&nbsp;&nbsp;' . $channel_query->row('channel_title') . '<br />';
+								}
 							}
 						}
 						if (array_key_exists('cats', $playa_info_decoded))
